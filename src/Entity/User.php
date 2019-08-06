@@ -56,7 +56,7 @@ class User {
    * return void
    * 
    */
-  public function setPassword(string$password) {
+  public function setPassword(string $password) {
       $this->hashedPassword = password_hash($password, PASSWORD_DEFAULT);
       
 //       password_hash este o functie care hasuieste
