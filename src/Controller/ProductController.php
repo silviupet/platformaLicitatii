@@ -1,39 +1,44 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 namespace App\Controller;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+
 use App\Entity\Product;
 use App\Form\ProductType;
+use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
-
-class ProductController extends AbstractController {
-    
 /**
- * @Route("/product/new", name="app_product_new")
- * @param Request $request
- */    
-    public function addProduct(Request $request){
-        $product = new Product;
-        $form = $this->createForm(ProductType::class,$product);
-       
+ * @Route("/product")
+ */
+class ProductController extends AbstractController
+{
+    /**
+     * @Route("/", name="product_index", methods={"GET"})
+     */
+    public function index(ProductRepository $productRepository): Response
+    {
+        return $this->render('product/index.html.twig', [
+            'products' => $productRepository->findAll(),
+        ]);
+    }
+
+    /**
+     * @Route("/new", name="product_new", methods={"GET","POST"})
+     * @param Request $request
+     */
+    public function new(Request $request): Response
+    {
+        $product = new Product();
+        $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
-/** @var Symfony\Component\HttpFoundation\File\UploadedFile $file */
-//            $file = $request->getSession->get('userId');
-            $file = 1;
+//             $file = $request->getSession->get('userId');
+            $file = 2;
             $product->setUserId($file);
-            
             $file = $product->getProductTitle();
             $product->setProductTitle($file);
             
@@ -99,24 +104,21 @@ class ProductController extends AbstractController {
                 $fileName
             );
             $product->setPhotoF($fileName);
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($product);
+            $entityManager->flush();
+      
             
-            $em=$this->getDoctrine()->getManager();
-            $em->persist($product);
-            $em->flush();
             
-            
- 
-           return new Response ('product uploaded');
 
-
-//            return $this->redirect($this->generateUrl('app_product_list'));
+            return $this->redirectToRoute('product_index');
         }
 
-        return $this->render('Products/addproducts.html.twig', array(
+        return $this->render('product/new.html.twig', [
+            'product' => $product,
             'form' => $form->createView(),
-        ));
+        ]);
     }
-
     /**
      * @return string
      */
@@ -126,5 +128,49 @@ class ProductController extends AbstractController {
         // uniqid(), which is based on timestamps
         return md5(uniqid());
     }
+
+
+    /**
+     * @Route("/{productId}", name="product_show", methods={"GET"})
+     */
+    public function show(Product $product): Response
+    {
+        return $this->render('product/show.html.twig', [
+            'product' => $product,
+        ]);
+    }
+
+    /**
+     * @Route("/{productId}/edit", name="product_edit", methods={"GET","POST"})
+     */
+    public function edit(Request $request, Product $product): Response
+    {
+        $form = $this->createForm(ProductType::class, $product);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('product_index');
+        }
+
+        return $this->render('product/edit.html.twig', [
+            'product' => $product,
+            'form' => $form->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{productId}", name="product_delete", methods={"DELETE"})
+     */
+    public function delete(Request $request, Product $product): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$product->getProductId(), $request->request->get('_token'))) {
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($product);
+            $entityManager->flush();
+        }
+
+        return $this->redirectToRoute('product_index');
+    }
 }
-       

@@ -20,6 +20,19 @@ php bin/console make:Entity
 
 se urmeaza pasii
 
+pentru User mai ok este cu
+
+php bin/console make:user (creaza entitatea user si userrepository si configurare packages/security.yaml
+
+apoi 
+
+Autentificare
+php bin/console make:auth
+
+a nu se uita a se modifica in config/packages/security.yaml 
+access_control:
+-{path: ^login$, roles: IS_AUTENTICATED_ANONIMOUSLY}
+
 8. creare Form
 
 php bin/console make:form 
@@ -40,7 +53,11 @@ php bin/console make:entity --regenerate
 
 11. creare controller
 
-php bin/console generate:doctrine:crud
+php bin/console make:controller
+
+sau un crud controller cu tote metodele  cu forms si cu templateuri
+
+php bin/console make:crud 
 
 12. creare view
 
