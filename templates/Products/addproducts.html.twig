@@ -1,0 +1,26 @@
+{%extends "base.html.twig"%}
+
+
+ {% block title %}Please add products!{% endblock %}
+        {% block stylesheets %}{% endblock %}
+    
+    
+        {% block body %}
+            <h1> Bine ati venit pe platforma noastra de licitatii"
+        
+         {{ form_start(form) }}
+    {# ... #}
+
+     
+         
+        
+            {{ form_row(form.productTitle) }}
+             {{ form_row(form.productDescription) }}
+             
+             {{ form_end(form) }}
+
+        
+        {% endblock %}
+        {% block javascripts %}{% endblock %}
+    
+

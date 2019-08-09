@@ -9,9 +9,7 @@ use Doctrine\ORM\Mapping as ORM;
  */
 
 /**
- * Description of User
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @author LAPTOP
  */
 class User {
   /**
@@ -20,7 +18,7 @@ class User {
    * @ORM\GeneratedValue
    * @ORM\Column(type="integer")
    */  
-  private $curentUserId;
+  private $userId;
   
    /**
    * @var string
@@ -73,8 +71,8 @@ class User {
         return password_verify($password , $this->hashedPassword);
     }
   
-    function getCurentUserId(): ?int {
-        return $this->curentUserId;
+    function getUserId(): ?int {
+        return $this->UserId;
     }
 
     function getEmail(): ? string{
@@ -88,13 +86,27 @@ class User {
     function getSignUpDate() {
         return $this->signUpDate;
     }
-    function setCurentUserId($curentUserId):self {
-        $this->curentUserId = $curentUserId;
+    function setUserId($UserId):self {
+        $this->UserId = $UserId;
         return $this;
     }
 
     function setHashedPassword($hashedPassword):self {
         $this->hashedPassword = $hashedPassword;
+        return $this;
+    }
+
+    public function setEmail(string $email): self
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    public function setSignUpDate(\DateTimeInterface $signUpDate): self
+    {
+        $this->signUpDate = $signUpDate;
+
         return $this;
     }
 
