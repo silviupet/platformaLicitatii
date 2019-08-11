@@ -64,3 +64,5 @@ php bin/console make:crud
 13. rulare 
 
 php bin/console server:run
+
+testare
