@@ -27,22 +27,40 @@ class ProductType extends AbstractType{
             ->add('productDescription', TextType::class)
                     
             ->add('photoA', FileType::class, 
-                    ['label' => 'poza 1'
+                    ['label' => 'poza 1',
+                      'data_class' => null
                         ])          
             ->add('photoB', FileType::class,
-                    ['label' => 'poza 2'
+                    ['label' => 'poza 2',
+                        'required' => false,
+                         'data_class' => null
                         ])
+                        
+                        
             ->add('photoC', FileType::class, 
-                    ['label' => 'poza 3'
+                    ['label' => 'poza 3',
+                        'required' => false,
+                         'data_class' => null
+                        
                         ])
             ->add('photoD', FileType::class, 
-                    ['label' => 'poza 4'
+                    ['label' => 'poza 4',
+                        'required' => false,
+                         'data_class' => null
+                        
                         ])
             ->add('photoE', FileType::class, 
-                    ['label' => 'poza 5'
+                    ['label' => 'poza 5',
+                        'required' => false,
+                         'data_class' => null
+                        
                         ])
             ->add('photoF', FileType::class,
-                    ['label' => 'poza 6'
+                    ['label' => 'poza 6',
+                        'required' => false,
+                         'data_class' => null
+                        
+                        
                         ])
             ->add('category', ChoiceType::class, [
                     'choices'  => [
@@ -51,17 +69,19 @@ class ProductType extends AbstractType{
                     'electronice' => 'electronice',
                     'altele'=> 'altele'
     ]
-                ])
-             ->add('save', SubmitType::class, 
-                        ['label' => 'adauga produs'
-                            ]);
+                ]);
+//             ->add('save', SubmitType::class, 
+//                        ['label' => 'adauga produs'
+//                            ]);
     
     }
     public function configureOptions(OptionsResolver $resolver)
     {
    
         $resolver->setDefaults([
-            'data_class' => Product::class,
+                
+           'data_class' => Product::class,
+            
         ]);
     }
 }

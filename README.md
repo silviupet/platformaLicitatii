@@ -26,14 +26,49 @@ php bin/console make:user (creaza entitatea user si userrepository si configurar
 
 apoi 
 
-Autentificare
+Autentificare 
+
+a se citi rojas.io/symfony-4-login-registration-system
+
 php bin/console make:auth
+
+se creaza in src/security LoginFormAuthenticator
+se updateaza config/packages/security.yaml
+se creaza controller/SecurityController
+se creaza template security/login.html.twik
 
 a nu se uita a se modifica in config/packages/security.yaml 
 access_control:
 -{path: ^login$, roles: IS_AUTENTICATED_ANONIMOUSLY}
 
-8. creare Form
+
+
+apoi
+
+user signup
+
+php bin/console make:registration-form
+
+a creat in form/RegistrationFormType
+controller RegistrationController
+template/registration/register.html.twig
+
+pentru lodout se seteaza in config/packages/security.yaml
+logout:
+                path: app_logout
+                # where to redirect after logout
+                target: product_index
+
+///////////////////////////////////////////////
+ de testat pt creare user mai complet 
+composer require msgphp/user-bundle
+apoi 
+php bin/console make:user
+
+daca se doreste autentificare via retele sociale check HWIOAuthBundle 
+
+//////////////////////////////////////////////////
+8. creare Form pt input produse
 
 php bin/console make:form 
 
@@ -65,4 +100,3 @@ php bin/console make:crud
 
 php bin/console server:run
 
-testare

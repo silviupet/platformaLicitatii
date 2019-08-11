@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\Product;
 use App\Form\ProductType;
 use App\Repository\ProductRepository;
@@ -31,14 +32,16 @@ class ProductController extends AbstractController
      */
     public function new(Request $request): Response
     {
+
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-//             $file = $request->getSession->get('userId');
-            $file = 2;
-            $product->setUserId($file);
+             $file = $this->getUser()->getUserId();
+//         $file = 2;     
+//          $file = $request->getSession()->get('userId');
+         $product->setUserId($file);
             $file = $product->getProductTitle();
             $product->setProductTitle($file);
             
@@ -54,8 +57,9 @@ class ProductController extends AbstractController
                 $fileName
             );
             $product->setPhotoA($fileName);
-
+  
             $file = $product->getPhotoB();
+             if($file){
             $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
 
             // moves the file to the directory where brochures are stored
@@ -64,8 +68,9 @@ class ProductController extends AbstractController
                 $fileName
             );
             $product->setPhotoB($fileName);
-
+             }
             $file = $product->getPhotoC();
+              if($file){
             $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
 
             // moves the file to the directory where brochures are stored
@@ -74,8 +79,9 @@ class ProductController extends AbstractController
                 $fileName
             );
             $product->setPhotoC($fileName);
-            
+              }
             $file = $product->getPhotoD();
+              if($file){
             $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
 
             // moves the file to the directory where brochures are stored
@@ -84,8 +90,9 @@ class ProductController extends AbstractController
                 $fileName
             );
             $product->setPhotoD($fileName);
-            
+              }
             $file = $product->getPhotoE();
+              if($file){
             $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
 
             // moves the file to the directory where brochures are stored
@@ -94,8 +101,9 @@ class ProductController extends AbstractController
                 $fileName
             );
             $product->setPhotoE($fileName);
-            
+              }
              $file = $product->getPhotoF();
+               if($file){
             $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
 
             // moves the file to the directory where brochures are stored
@@ -104,6 +112,7 @@ class ProductController extends AbstractController
                 $fileName
             );
             $product->setPhotoF($fileName);
+               }
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($product);
             $entityManager->flush();
@@ -131,7 +140,7 @@ class ProductController extends AbstractController
 
 
     /**
-     * @Route("/{productId}", name="product_show", methods={"GET"})
+     * @Route("/{productId}", name="product_show", methods={"GET"},requirements={"productId":"\d+"})
      */
     public function show(Product $product): Response
     {
@@ -141,7 +150,7 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/{productId}/edit", name="product_edit", methods={"GET","POST"})
+     * @Route("/{productId}/edit", name="product_edit", methods={"GET","POST"},requirements={"ProductId":"\d+"})
      */
     public function edit(Request $request, Product $product): Response
     {
@@ -161,7 +170,7 @@ class ProductController extends AbstractController
     }
 
     /**
-     * @Route("/{productId}", name="product_delete", methods={"DELETE"})
+     * @Route("/{productId}", name="product_delete", methods={"DELETE"}, requirements={"productId":"\d+"})
      */
     public function delete(Request $request, Product $product): Response
     {

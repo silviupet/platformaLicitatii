@@ -14,6 +14,12 @@ class SecurityController extends AbstractController
      */
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
+         if($this->isGranted("IS_AUTHENTICATED_FULLY")){
+            return $this->redirectedToRoute('product_index');
+        }
+//        pentru a preveni ca un utilizator logat sa aiba acces la registration and login 
+//        
+//        
         // if ($this->getUser()) {
         //    $this->redirectToRoute('target_path');
         // }
@@ -31,6 +37,9 @@ class SecurityController extends AbstractController
      */
     public function logout()
     {
-        throw new \Exception('This method can be blank - it will be intercepted by the logout key on your firewall');
+        $request->getSession()->invalidate();
+        return new RedirectResponse($this->urlGenerator->generate('product_index'));
+//         return $this->redirectedToRoute('product_index');
+//        throw new \Exception('This method can be blank - it will be intercepted by the logout key on your firewall');
     }
 }
