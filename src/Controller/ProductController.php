@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use App\Entity\Licitatie;
 
 /**
  * @Route("/product")
@@ -36,17 +37,19 @@ class ProductController extends AbstractController
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
+       
 
         if ($form->isSubmitted() && $form->isValid()) {
              $file = $this->getUser()->getUserId();
+             
 //         $file = 2;     
 //          $file = $request->getSession()->get('userId');
-         $product->setUserId($file);
+            $product->setUserId($file);
             $file = $product->getProductTitle();
             $product->setProductTitle($file);
             
             $file = $product->getProductDescription();
-            $product->setProductTitle($file);
+            $product->setProductDescription($file);
             
             $file = $product->getPhotoA();
             $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
@@ -113,6 +116,19 @@ class ProductController extends AbstractController
             );
             $product->setPhotoF($fileName);
                }
+               
+            $file = $product->getPretPornire();
+            $product->setPretPornire($file);
+            $product->setUltimulPretLicitat($file);
+            
+            
+            
+            $file = $product->getDataStop();
+            
+            $product->setDataStop($file);
+            
+            
+            
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($product);
             $entityManager->flush();
@@ -144,11 +160,20 @@ class ProductController extends AbstractController
      */
     public function show(Product $product): Response
     {
+//         $repo = $this->getDoctrine()->getRepository(Licitatie::class);
+//         $licitatie=$repo->findOneBy([
+//             'productId'=>$product->getProductId() 
+//         ], [
+//             'dataPretLicitat'=>'DESC'
+//         ]);
+        
         return $this->render('product/show.html.twig', [
             'product' => $product,
+//            'licitatie' =>$licitatie
         ]);
     }
-
+    
+     
     /**
      * @Route("/{productId}/edit", name="product_edit", methods={"GET","POST"},requirements={"ProductId":"\d+"})
      */
@@ -159,7 +184,7 @@ class ProductController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
+//de bagat cod aici 
             return $this->redirectToRoute('product_index');
         }
 

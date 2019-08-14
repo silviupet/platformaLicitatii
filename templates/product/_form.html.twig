@@ -1,4 +1,31 @@
-{{ form_start(form) }}
+{#{{ form_start(form) }}
     {{ form_widget(form) }}
     <button class="btn">{{ button_label|default('Save') }}</button>
-{{ form_end(form) }}
+{{ form_end(form) }}#}
+
+{#{% block title %}Register{% endblock %}#}
+{% block body %}
+   <div class="row">
+       <div class="col-6 offset-3">
+           <div class="card bg-light">
+               <div class="card-body">
+                   <h1 class="text-center">Register</h1>
+                   {{ form_start(form) }}
+                       {{ form_row(form.productTitle) }}
+                       {{ form_row(form.productDescription) }}
+                       {{ form_row(form.photoA) }}
+                       {{ form_row(form.photoB) }}
+                       {{ form_row(form.photoC) }}
+                       {{ form_row(form.photoD) }}
+                       {{ form_row(form.photoE) }}
+                       {{ form_row(form.photoF) }}
+                       {{ form_row(form.category) }}
+                       {{ form_row(form.pretPornire) }}
+                       {{ form_row(form.dataStop) }}
+                       <button class="btn btn-primary btn-block">salvare</button>
+                   {{ form_end(form) }}
+               </div>
+           </div>
+       </div>
+   </div>
+{% endblock %}

@@ -1,4 +1,4 @@
-# platformaLicitatii
+# platformadelicitatii
 1. creare proiect: cd calea unde e proiectul; 
 
  create -project symfony/website-skeleton nume_site
@@ -11,7 +11,7 @@ composer require symfony/maker-bundle --dev
 3. configurare conexiune db in .env rand 27 .
 conventia este ca numele db sa fie la fel ca si proiectul
 
-4. definim obiectele cu care lucram SRC/Entity (entity - new PHP class,name spaace App\entity si definim proprietatiile)
+4. definim obiectele cu care lucram SRC/Entity (entity - new PHP class,name spaace App\entity si definim proprietatiile) sau mai simplu pas 7
 5.Mapare la DB Use Doctrine\ORM\Maping as ORM
 6. creare DB in workbench sau phpmyadmin
 
@@ -74,6 +74,17 @@ php bin/console make:form
 
 se urm pasii
 
+atentie Pozele se uploadeaza in Public Upload. Pt aceasta se seteaza in service yaml
+
+parameters:
+    Photo_directory: '%kernel.project_dir%/public/uploads'
+
+iar in  controller 
+$file->move(
+                $this->getParameter('Photo_directory'),
+                $fileName
+            );
+
 9. creare db si migrare 
 
 php bin/console make:migration
@@ -99,4 +110,10 @@ php bin/console make:crud
 13. rulare 
 
 php bin/console server:run
+
+14 debug
+
+composer require debug --dev
+
+
 

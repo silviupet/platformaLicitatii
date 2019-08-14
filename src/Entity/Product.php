@@ -5,6 +5,10 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
+use Symfony\Component\Validator\Constraints\DateTime;
+use Doctrine\DBAL\Types\DateTimeType;
+
+
 
 
 /**
@@ -70,12 +74,65 @@ class Product
      * @ORM\Column(type="string")
      */
     private $category;
+    
+     /**
+     * @ORM\Column(type="integer")
+     */
+    private $pretPornire;
+    
+     /**
+     * @ORM\Column(type="integer")
+     */
+    private $ultimulPretLicitat;
+    
+    /**
+     * @ORM\Column(type="datetime")
+     * 
+     * @var \DateTime
+     */
+    private $dataStop;
+    
+    public function getPretPornire(): ?int
+    {
+        return $this->pretPornire;
+       
+    }
+    public function setPretPornire(int $pretPornire): self
+    {
+        $this->pretPornire = $pretPornire;
+
+        return $this;
+    }
+    
+   public function getUltimulPretLicitat(): ?int
+    {
+        return $this->ultimulPretLicitat;
+       
+    }
+    public function setUltimulPretLicitat(int $ultimulPretLicitat): self
+    {
+        $this->ultimulPretLicitat = $ultimulPretLicitat;
+
+        return $this;
+    }
+    public function getDataStop(): ?\datetime
+    {               
+        return $this->dataStop;
+    }
+
+    public function setDataStop(\DateTime $dataStop) : self
+    {
+        $this->dataStop = $dataStop;
+
+        return $this;
+    }
 
     public function getId(): ?int
     {
         return $this->id;
     }
-
+    
+    
     public function getProductId(): ?int
     {
         return $this->productId;
@@ -239,5 +296,11 @@ class Product
             'choices' => ['autovehicole', 'mobilier' , 'electronice' , 'altele'],
             'message' => 'Choose a valid option.',
     ]));
+        
+        $metadata->addPropertyConstraint('pretPornire', new Assert\Positive());
+        
+        $metadata->addPropertyConstraint('dataStop', new Assert\DateTime());
+        
+       
 }
 }

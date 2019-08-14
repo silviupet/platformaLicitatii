@@ -8,6 +8,8 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 Use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Validator\Constraints\File;
 
 
@@ -69,7 +71,17 @@ class ProductType extends AbstractType{
                     'electronice' => 'electronice',
                     'altele'=> 'altele'
     ]
-                ]);
+                ])
+        ->add('pretPornire', NumberType::class)
+                
+        ->add('dataStop', DateType::class, [
+                 'label' => 'data sfarsit licitatie',
+                 'required' => 'false',
+                 'widget' => 'single_text',
+                 'format' => 'yyyy-MM-dd',
+                
+                    ]);
+        
 //             ->add('save', SubmitType::class, 
 //                        ['label' => 'adauga produs'
 //                            ]);
