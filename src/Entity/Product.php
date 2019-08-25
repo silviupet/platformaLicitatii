@@ -36,7 +36,7 @@ class Product
     private $productTitle;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable= true)
      */
     private $productDescription;
 
@@ -182,11 +182,13 @@ class Product
     }
 
     public function getPhotoA()
+    //        se scoate : ?string da eroare 
     {
         return $this->photoA;
     }
 
     public function setPhotoA($photoA)
+//       se scoate (string $photoB): self da eroare         
     {
         $this->photoA = $photoA;
 
@@ -194,11 +196,13 @@ class Product
     }
 
     public function getPhotoB()
+//        se scoate : ?string da eroare 
     {
         return $this->photoB;
     }
 
     public function setPhotoB($photoB)
+//        se scoate (string $photoB): self da eroare 
     {
         $this->photoB = $photoB;
 
@@ -270,6 +274,7 @@ class Product
         $metadata->addPropertyConstraint('photoA', new Assert\File([
             'maxSize' => '10240k',
             'mimeTypesMessage' => 'Please upload a valid photo',
+           
         ]));
         $metadata->addPropertyConstraint('photoB', new Assert\File([
             'maxSize' => '10240k',

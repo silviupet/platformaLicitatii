@@ -1,6 +1,6 @@
-{#{% extends 'base.html.twig' %}#}
+{% extends 'base.html.twig' %}
 
-{% block title %}Edit Product{% endblock %}
+{#{% block title %}Edit Product{% endblock %}
 
 {% block body %}
     <h1>Edit Product</h1>
@@ -10,4 +10,128 @@
     <a href="{{ path('product_index') }}">back to list</a>
 
     {{ include('product/_delete_form.html.twig') }}
-{% endblock %}
+{% endblock %}#}
+{% block body %}
+<div class="row">
+        <div class="col-lg-12">
+            <h2 class="text-center">Edit product</h2>
+        </div>
+        <div class="col-lg-12 text-center" style="margin-top:10px;margin-bottom: 10px;">
+            <a class="btn btn-primary" href="{{ path('my_products') }}"> Back</a>
+        </div>
+    </div>
+
+  {#  @if ($errors->any())
+        <div class="alert alert-danger">
+            <strong>Oops!</strong> There were some problems with your input.<br><br>
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif#}
+  <div class="card-body">
+    <form action="{{path('product_edit',{'productId':product.productId})}}" method="POST" enctype="multipart/form-data">
+       <input type="hidden" name="productId" value="{{product.productId}}"></input>
+       {# @csrf#}
+        <div class="row">
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Titlu Produs:</strong>
+                    <input type="text"  value="{{product.productTitle}}" name="productTitle" class="form-control" placeholder="Titlu produs"></input>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Descriere Produs:</strong>
+                    <input type="textarea" class="form-control rounded-0" id="description" name="productDescription" rows="10" value="{{product.productDescription}}"<input>
+                </div>
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Photo1:</strong>
+                    <input type="file" name="photoA" class="form-control"></input>
+                    {% if product.photoA%}
+                    <img src="{#{{ url('/') }}#}/uploads/{{ product.PhotoA }}" style="max-width: 5%">
+                    {%endif%}
+                </div>
+            </div>
+             <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Photo2:</strong>
+                    <input type="file" name="photoB" class="form-control" ></input>
+                    {% if product.photoB%}
+                    <img src="{#{{ url('/') }}#}/uploads/{{ product.PhotoB }}" style="max-width: 5%">
+                    {%endif%}
+                </div>
+            </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Photo3:</strong>
+                    <input type="file" name="photoC" class="form-control">
+                    {% if product.photoC%}
+                    <img src="{#{{ url('/') }}#}/uploads/{{ product.PhotoC }}" style="max-width: 5%"></input>
+                    {%endif%}
+                </div>
+            </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Photo4:</strong>
+                    <input type="file" name="photoD" class="form-control"></input>
+                    {% if product.photoD%}
+                    <img src="{#{{ url('/') }}#}/uploads/{{ product.PhotoD }}" style="max-width: 5%">
+                    {%endif%}
+                </div>
+            </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Photo5:</strong>
+                    <input type="file" name="photoE" class="form-control"></input>
+                    {% if product.photoE%}
+                    <img src="{#{{ url('/') }}#}/uploads/{{ product.PhotoE }}" style="max-width: 5%">
+                    {%endif%}
+                </div>
+            </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Photo6:</strong>
+                    <input type="file" name="photoF" class="form-control"></input>
+                    {% if product.photoF%}
+                    <img src="{#{{ url('/') }}#}/uploads/{{ product.PhotoF }}" style="max-width: 5%">
+                    {%endif%}
+                </div>
+            </div>
+                
+                 <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Categorie:</strong>
+                    <select name="category">
+                        <option value="autovehicole">autovehicole</option>
+                        <option value="electronice">electronice</option>
+                        <option value="mobilier">mobilier</option>
+                        <option value="altele">altele</option>
+                    </select>   
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Pret Pornire:</strong>
+                    <input type="text" value="{{product.pretPornire}}" name="pretPornire" class="form-control" placeholder="Price"></input>
+                </div>
+            </div>
+                <div class="col-xs-12 col-sm-12 col-md-12">
+                <div class="form-group">
+                    <strong>Data Stop Licitatie:</strong>
+                    <input type="date" {#value="{{product.dataStop}}"#} name="dataStop" class="form-control" placeholder="Data stop"></input>
+                </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 text-center">
+                <button type="submit" class="btn btn-primary">Edit product</button>
+            </div>
+        </div>
+    </form>
+  </div>
+                    {%endblock%}

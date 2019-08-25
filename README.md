@@ -53,7 +53,7 @@ a creat in form/RegistrationFormType
 controller RegistrationController
 template/registration/register.html.twig
 
-pentru lodout se seteaza in config/packages/security.yaml
+pentru logout se seteaza in config/packages/security.yaml
 logout:
                 path: app_logout
                 # where to redirect after logout

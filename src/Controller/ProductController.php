@@ -52,6 +52,7 @@ class ProductController extends AbstractController
             $product->setProductDescription($file);
             
             $file = $product->getPhotoA();
+            if($file){
             $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
 
             // moves the file to the directory where brochures are stored
@@ -60,6 +61,7 @@ class ProductController extends AbstractController
                 $fileName
             );
             $product->setPhotoA($fileName);
+            }
   
             $file = $product->getPhotoB();
              if($file){
@@ -136,7 +138,7 @@ class ProductController extends AbstractController
             
             
 
-            return $this->redirectToRoute('product_index');
+            return $this->redirectToRoute('my_products');
         }
 
         return $this->render('product/new.html.twig', [
@@ -174,25 +176,25 @@ class ProductController extends AbstractController
     }
     
      
-    /**
-     * @Route("/{productId}/edit", name="product_edit", methods={"GET","POST"},requirements={"ProductId":"\d+"})
-     */
-    public function edit(Request $request, Product $product): Response
-    {
-        $form = $this->createForm(ProductType::class, $product);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
-//de bagat cod aici 
-            return $this->redirectToRoute('product_index');
-        }
-
-        return $this->render('product/edit.html.twig', [
-            'product' => $product,
-            'form' => $form->createView(),
-        ]);
-    }
+//    /**
+//     * @Route("/{productId}/edit", name="product_edit", methods={"GET","POST"},requirements={"ProductId":"\d+"})
+//     */
+//    public function edit(Request $request, Product $product): Response
+//    {
+//        $form = $this->createForm(ProductType::class, $product);
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $this->getDoctrine()->getManager()->flush();
+////de bagat cod aici 
+//            return $this->redirectToRoute('product_index');
+//        }
+//
+//        return $this->render('product/edit.html.twig', [
+//            'product' => $product,
+//            'form' => $form->createView(),
+//        ]);
+//    }
 
     /**
      * @Route("/{productId}", name="product_delete", methods={"DELETE"}, requirements={"productId":"\d+"})

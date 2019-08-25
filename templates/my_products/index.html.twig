@@ -1,5 +1,6 @@
 {% extends 'base.html.twig' %}
 
+
 {% block title %}Product index{% endblock %}
 
 {% block body %}
@@ -17,9 +18,12 @@
                 
            </div>     
                     <a href="{{ path('product_show', {'productId': product.productId}) }}">show</a>
-                     {% if is_granted('ROLE_ADMIN') %}   {#{% endif %}#}
+                   {#  {% if is_granted('ROLE_ADMIN') %}   {#{% endif %}#}
                     <a href="{{ path('product_edit', {'productId': product.productId}) }}">edit</a>
-                    {% endif%}
+                   {# {% if is_granted('ROLE_ADMIN') %}   #}
+                    {{ include('product/_delete_form.html.twig') }}
+                     {#{%endif%}#}
+                  {#  {% endif%}#}
         {% else %}
             
             <div colspan="12">no records found</div>
@@ -27,7 +31,6 @@
         {% endfor %}
        
     
-{%if is_granted('ROLE_ADMIN') %} 
+
     <a href="{{ path('product_new') }}">Create new</a>
-{%endif%}
 {% endblock %}
