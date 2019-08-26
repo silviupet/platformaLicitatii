@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Licitatie;
 
+
 /**
  * @Route("/product")
  */
@@ -19,13 +20,51 @@ class ProductController extends AbstractController
 {
     /**
      * @Route("/", name="product_index", methods={"GET"})
+     * 
      */
     public function index(ProductRepository $productRepository): Response
     {
+//     
+       $products = $this->getDoctrine()->getManager()
+        ->createQuery('SELECT p FROM App\Entity\Product p WHERE p.dataStop >= CURRENT_DATE()')
+        ->getResult();
+   
+        
+       
         return $this->render('product/index.html.twig', [
-            'products' => $productRepository->findAll(),
-        ]);
-    }
+            'products' => $products,
+            'message' =>''
+                ]);
+    }  
+//            $productRepository->findBy([
+//                'dataStop' => $products ->getDataStop()
+//            ])
+//        ]);
+//    } 
+             
+//         return $this->render('product/index.html.twig', [
+//            'products' =>$product
+//        ]);
+                    
+//                    findBy([
+//                'dataStop'>= $Today
+//                    ]);
+//                dump($product); 
+//             if($product){
+//        return $this->render('product/index.html.twig', [
+//            'products' => $product,
+//             'message' => ''
+//            ]);
+//        
+//             }
+////             else return $this->render('product/index.html.twig', [
+//////            'products' => $productRepository->findBy([
+//////                'dataStop'>= $Today,
+////                    'message' => 'nu avem nici un produs scos la licitatie '
+////                 ]);
+//           else  return new Respomse('nu avem nici un produs la licitatie');
+//             
+//    }
 
     /**
      * @Route("/new", name="product_new", methods={"GET","POST"})

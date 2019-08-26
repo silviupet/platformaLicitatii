@@ -15,7 +15,8 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
          if($this->isGranted("IS_AUTHENTICATED_FULLY")){
-            return $this->redirectedToRoute('product_index');
+            return $this->redirectToRoute('product_index');
+             
         }
 //        pentru a preveni ca un utilizator logat sa aiba acces la registration and login 
 //        

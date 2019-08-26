@@ -5,13 +5,14 @@
 {% block body %}
     <h1>Produse scoase la licitatie </h1>
 
-    
+    {{message}}
         {% for product in products %}
             <div id ="container">    
-        <div id="productTitle"> {{ product.productTitle }} </div>        
-        <div id="photoA"><img style="max-width: 200px" src="/uploads/{{ product.photoA }}"</div> 
+        <div id="productTitle"> Produs: {{ product.productTitle }} </div>        
+        <div id="photoA"><img style="max-width: 100px" src="/uploads/{{ product.photoA }}"</div> 
       
-        <div id="productDescription">  {{ product.productDescription }}</div>
+        <div id="productDescription"> Descriere:  {{ product.productDescription }}</div>
+        <div id="ultimulPretLicitat">  Ultimul Pret Licitat: {{ product.ultimulPretLicitat }}</div>
                 
                      
                 

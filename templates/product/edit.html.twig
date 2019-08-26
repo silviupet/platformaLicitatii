@@ -124,7 +124,8 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Data Stop Licitatie:</strong>
-                    <input type="date" {#value="{{product.dataStop}}"#} name="dataStop" class="form-control" placeholder="Data stop"></input>
+                    <input type="date" value="{{product.dataStop|date('y-m-d')}}" name="dataStop" class="form-control" placeholder="Data stop"></input>
+                    Ultima data sfarsit licitatie setata este: {{product.dataStop|date('y-m-d')}}
                 </div>
             </div>
 

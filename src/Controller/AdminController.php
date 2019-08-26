@@ -13,6 +13,7 @@ use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Licitatie;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
 class AdminController extends AbstractController
 {
@@ -27,4 +28,6 @@ class AdminController extends AbstractController
     }
 
     
+
+
 }

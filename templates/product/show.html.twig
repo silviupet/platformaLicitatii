@@ -67,15 +67,20 @@
         </tbody>
     </table>
         
- <form id ="ad_form", method ="POST" action="{{path('addLicitatie')}}">
+ <form id ="ad_form" method ="POST" action="{{path('addLicitatie', {'productId': product.productId})}}">
 {# action="{{path('addLicitatie')}}" ca sa adaugam numele rutei si nu ruta definita la LicitatieController     #}
   <input type="number" min= "1" name ="pretLicitat" id="myInput" placeholder="Pret licitat..." required>
 {# name ="pretLicitat" a fost definit in LicitatieController cand luam postul $pretLicitat = $request->request->get('pretLicitat') #}
+{#<input type="hidden"  name="productId" value="{{product.getProductId()}}">#}
 <span onclick="document.getElementById('ad_form').submit()" class="addBtn">Liciteaza</span>
 {#aici e o forma de a nu avea buton- pt ca e greu de stilizat si la sfarsitul unui element
  se pune un span care la onclick face metoda submit()#}
+
  
-{#se pune type hidden - pentru ca prin acest request sa putem lua idprodusului din value prin campul name- care va si importat in php#}
+{#se pune type hidden - pentru ca prin acest request sa putem lua id produsului din value prin campul name- care va si importat in php#}
+{#exista 2 moduri de a trimite Id produsului in controller
+1. cu input tipe hidden si avole luat cu $request->request->get('productId')
+2. cu action="{{path('addLicitatie', {'productId': product.productId})}} si acolo luat cu $request->request->get('productId')"#}
   </form>    
 
           
