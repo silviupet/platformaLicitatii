@@ -1,23 +1,61 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Product index{% endblock %}
+{% block stylesheets %}
+  <style>
+    #container {
+    
+       display: grid;
+        grid-template-columns: 20% 20% 20% 20% 20%;
+        grid-template-rows: 20% 20% 20% 20% 20%;
+}
+    </style>
+        {% endblock %}
 
 {% block body %}
+ <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  
+  
+    
+
     <h1>Produse scoase la licitatie </h1>
 
     {{message}}
+     <div id ="container">  
         {% for product in products %}
-            <div id ="container">    
-        <div id="productTitle"> Produs: {{ product.productTitle }} </div>        
-        <div id="photoA"><img style="max-width: 100px" src="/uploads/{{ product.photoA }}"</div> 
-      
-        <div id="productDescription"> Descriere:  {{ product.productDescription }}</div>
-        <div id="ultimulPretLicitat">  Ultimul Pret Licitat: {{ product.ultimulPretLicitat }}</div>
+       
+       <div>
+          
+            <div id="productTitle"> Produs: {{ product.productTitle }} </div>
+            
+                 <img style="max-width: 200px" src="/uploads/{{ product.photoA }}"> 
+         
+                             <div id="productDescription"> Descriere:  {{ product.productDescription }}</div>
+                                <div id="ultimulPretLicitat">  Ultimul Pret Licitat: {{ product.ultimulPretLicitat }}</div>
+                                
+         <a href="{{ path('product_show', {'productId': product.productId}) }}">show</a>                    
+                           
+       </div>  
+       
+        
+        
+          
+    <script>
+    setInterval(function(){
+       $.getJSON("/apiindex" , function(data){
+           $('#container1').text(data.ultimulPretLicitat)
+       }
+       )
+    }, 5000)
+    
                 
                      
                 
-           </div>     
-                    <a href="{{ path('product_show', {'productId': product.productId}) }}">show</a>
+   </script> 
+                   {# <a href="{{ path('product_show', {'productId': product.productId}) }}">show</a>#}
                      {% if is_granted('ROLE_ADMIN') %}   {#{% endif %}#}
                     <a href="{{ path('product_edit', {'productId': product.productId}) }}">edit</a>
                     {% endif%}
@@ -26,7 +64,7 @@
             <div colspan="12">no records found</div>
             
         {% endfor %}
-       
+</div>    
     
 {%if is_granted('ROLE_ADMIN') %} 
     <a href="{{ path('product_new') }}">Create new</a>

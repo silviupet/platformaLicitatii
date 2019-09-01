@@ -160,6 +160,7 @@ class ProductController extends AbstractController
                
             $file = $product->getPretPornire();
             $product->setPretPornire($file);
+            
             $product->setUltimulPretLicitat($file);
             
             

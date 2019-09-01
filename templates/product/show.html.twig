@@ -1,39 +1,67 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Product{% endblock %}
+{% block stylesheets %}
+  <style>
+   container {
+    
+       display: grid;
+        grid-template-columns: 15% 15% 15% 15% 15% 15%;
+        grid-template-rows: 20% 20% 20% 20% 20%;
+}
+    </style>
+        {% endblock %}
+
 
 {% block body %}
-    <h1>Product</h1>
+{#    <h1>Product</h1>#}
 
-    <table class="table">
+   {# <table class="table">
         <tbody>
             <tr>
-                <th>ProductId</th>
-                <td>{{ product.productId }}</td>
-            </tr>
+                <th>ProductId</th>#}
+               {# <div>{{ product.productId }}</div>#}
+            {#</tr>
             <tr>
-                <th>UserId</th>
-                <td>{{ product.userId }}</td>
-            </tr>
+                <th>UserId</th>#}
+                {#<div>{{ product.userId }}</div>#}
+           {# </tr>
+            <tr>#}
+       
+    <div> Titlu: {{ product.productTitle }}</div>
+           {# </tr>
             <tr>
-                <th>ProductTitle</th>
-                <td>{{ product.productTitle }}</td>
-            </tr>
-            <tr>
-                <th>ProductDescription</th>
-                <td>{{ product.productDescription }}</td>
-            </tr>
-            <tr>
-                <th>PhotoA</th>
-                <td> <div id="photoA"><img style="max-width: 200px" src="/uploads/{{ product.photoA }}"</div></td>
+                <th>ProductDescription</th>#}
+           <div id="container">  
+                <img style="max-width: 200px" src="/uploads/{{ product.photoA }}">
 {#                <div id="photoA"><img style="max-width: 200px" src="/uploads/{{ product.photoA }}"</div> #}
-            </tr>
+           {# </tr>
             <tr>
-                <th>PhotoB</th>
-                <td><div id="photoB"><img style="max-width: 200px" src="/uploads/{{ product.photoB }}"</div></td>
-            </tr>
-            <tr>
-                <th>PhotoC</th>
+                <th>PhotoB</th>#}
+                {% if product.PhotoB|default(null) %}
+               <img style="max-width: 200px" src="/uploads/{{ product.photoB }}">
+               {%endif%}
+                
+                 {% if product.PhotoC|default(null) %}
+                <img style="max-width: 200px" src="/uploads/{{ product.photoC }}">
+                {%endif%}
+                 
+                  {% if product.PhotoD|default(null) %}
+                <img style="max-width: 200px" src="/uploads/{{ product.photoD }}">
+                {%endif%}
+                  
+                   {% if product.PhotoE|default(null) %}
+                <img style="max-width: 200px" src="/uploads/{{ product.photoE }}">
+                {%endif%}
+                   
+                    {% if product.PhotoF|default(null) %}
+                <img style="max-width: 200px" src="/uploads/{{ product.photoF }}">
+                {%endif%}
+         </div>       
+                   
+            {#</tr>
+            <tr>#}
+                {#<th>PhotoC</th>
                 <td><div id="photoC"><img style="max-width: 200px" src="/uploads/{{ product.photoC }}"</div></td>
             </tr>
             <tr>
@@ -47,26 +75,26 @@
             <tr>
                 <th>PhotoF</th>
                 <td><div id="photoF"><img style="max-width: 200px" src="/uploads/{{ product.photoF }}"</div></td>
-            </tr>
+            </tr>#}
+            {#<tr>
+                <th>Category</th>#}
+                <div> Categorie: {{ product.category }}</div>
+           {# </tr>
+            <tr>#}
+              {#  <th>pret pornire</th>#}
+                <div>Pret Pornire: {{ product.pretPornire }}</div>
+           {# </tr>
             <tr>
-                <th>Category</th>
-                <td>{{ product.category }}</td>
-            </tr>
-            <tr>
-                <th>pret pornire</th>
-                <td>{{ product.pretPornire }}</td>
-            </tr>
-            <tr>
-                <th>Data stop</th>
-               <td>{{ product.dataStop.format('Y-m-d') }}</td>
-            </tr>
+                <th>Data stop</th>#}
+               <div>Data Stop Licitiatie: {{ product.dataStop.format('Y-m-d') }}</div>
+           {# </tr>
              <tr>
-                <th>Ultimul pret licitat</th>
-               <td>{{ product.ultimulPretLicitat }}</td>
-            </tr>
+                <th>Ultimul pret licitat</th>#}
+               <div>Ultimul pret licitat: {{ product.ultimulPretLicitat }}</div>
+            {#</tr>
         </tbody>
-    </table>
-        
+    </table>#}
+       
  <form id ="ad_form" method ="POST" action="{{path('addLicitatie', {'productId': product.productId})}}">
 {# action="{{path('addLicitatie')}}" ca sa adaugam numele rutei si nu ruta definita la LicitatieController     #}
   <input type="number" min= "1" name ="pretLicitat" id="myInput" placeholder="Pret licitat..." required>
