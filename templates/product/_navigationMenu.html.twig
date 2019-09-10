@@ -1,0 +1,46 @@
+{# empty Twig template #}
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Licitatie</title>
+<link href="{{ asset('css/main.css') }}" rel="stylesheet" />
+</head>
+
+<body>
+ {% if is_granted('ROLE_USER') %}   
+            <div id="user">Bine ai venit  {{ user}} </div>
+            {%endif%}
+	<header>
+           
+            
+		<div class="row">
+			<div class="col">
+				<img class="style-logo"  style="max-width: 50px" src="{{ asset('images/auction.png') }}" alt="auction Logo">
+				<nav class="style-nav">
+					<ul>
+						<li><a href="{{path('product_index')}}">Home</a></li>
+						{#<li><a href="{{path('my_products')}}">Produsele Mele</a></li>#}
+						<li><a href="{{path('product_new')}}">Adauga produs</a></li>
+						<li><a href="#">Food</a></li>
+                                                <li class="nav-item dropdown">
+                                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                     User
+                                                 </a>
+                                                    <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                                      <a class="dropdown-item" href="{{path('my_products')}}">Produsele Mele</a>
+                                                       <a class="dropdown-item" href="{{path('favorites')}}">Produsele Favorite</a>
+                                                     <a class="dropdown-item" href="{{path('app_login')}}">Login</a>
+                                                     <a class="dropdown-item" href="{{path('app_logout')}}">Logout</a>
+                                                     <a class="dropdown-item" href="{{path('admin')}}">Administrator</a> 
+                                                    </div>
+                                                </li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+	</header>
+
+	
+</body>
+</html>

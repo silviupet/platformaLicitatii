@@ -2,35 +2,96 @@
 
 
 {% block title %}Product index{% endblock %}
+{% block stylesheets %}
 
-{% block body %}
-    <h1>Produse scoase la licitatie </h1>
-
+  <style>
+{# tablet view     #}
+       @media (min-width: 768px){
+	
+	body {
+		max-width: 778px;
+	}
+         #container1 {
     
+       display: grid;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 50% 50%;
+        
+   
+        
+}
+{#desktop view#}
+@media (min-width: 1024px){
+	
+	body {
+		max-width: 1200px;
+	}
+        
+    #container1 {
+    
+       display: grid;
+        grid-template-columns: 20% 20% 20% 20% 20%;
+        grid-template-rows: 20% 20% 20% 20% 20%;    
+ 
+    </style>
+        {% endblock %}
+{% block body %}
+   
+
+  {{ include('product/_navigationMenu.html.twig') }} 
+   <h1>Produsele mele </h1>
+  <div id="container1">
         {% for product in products %}
-            <div id ="container">    
-        <div id="productTitle"> Titlu: {{ product.productTitle }} </div>        
-        <div id="photoA"><img style="max-width: 200px" src="/uploads/{{ product.photoA }}"</div> 
-      
-        <div id="productDescription"> Descriere:  {{ product.productDescription }}</div>
-                
-                     
-                
-           </div>     
-                    <a href="{{ path('product_show', {'productId': product.productId}) }}">show</a>
+            
+            <div class="card" style="width: 200px; height: 500px; position:relative">
+             <h5 class="card-title"> {{ product.productTitle }}</h5>
+                <img style="width: 200px; height: 250px" src="/uploads/{{ product.photoA }}" class="card-img-top" alt="...">
+                    <div class="card-body">
+    
+                     <p class="card-text">{{ product.productDescription }}</p>
+                        <hr>
+                     <p class="card-text">Pret Licitat: {{ product.ultimulPretLicitat }}</p>
+            
+                     <a href="{{ path('product_show', {'productId': product.productId}) }}">Detalii</a>
                    {#  {% if is_granted('ROLE_ADMIN') %}   {#{% endif %}#}
-                    <a href="{{ path('product_edit', {'productId': product.productId}) }}">edit</a>
+                    <a href="{{ path('product_edit', {'productId': product.productId}) }}">Modifica</a>
                    {# {% if is_granted('ROLE_ADMIN') %}   #}
                     {{ include('product/_delete_form.html.twig') }}
                      {#{%endif%}#}
+                  {#  {% endif%}#}   
+            
+            
+                    </div>  
+            </div>
+            
+            
+            {#<div>
+          
+            <div id="productTitle"> Produs: {{ product.productTitle }} </div>
+            
+                 <img style="max-width: 200px" src="/uploads/{{ product.photoA }}"> 
+         
+                             <div id="productDescription"> Descriere:  {{ product.productDescription }}</div>
+                                <div id="ultimulPretLicitat">  Ultimul Pret Licitat: {{ product.ultimulPretLicitat }}</div>
+                                
+                        
+                           
+         
+                    <a href="{{ path('product_show', {'productId': product.productId}) }}">Detalii</a>
+                   {#  {% if is_granted('ROLE_ADMIN') %}   {#{% endif %}#}
+                    {#<a href="{{ path('product_edit', {'productId': product.productId}) }}">Modifica</a>#}
+                   {# {% if is_granted('ROLE_ADMIN') %}   #}
+                   {# {{ include('product/_delete_form.html.twig') }}#}
+                     {#{%endif%}#}
                   {#  {% endif%}#}
+           {# </div>#}
         {% else %}
             
             <div colspan="12">no records found</div>
             
         {% endfor %}
        
-    
-
-    <a href="{{ path('product_new') }}">Create new</a>
+  </div>
+{{ include('product/_footer.html.twig') }}
+  {#  <a href="{{ path('product_new') }}">Create new</a>#}
 {% endblock %}

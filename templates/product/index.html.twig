@@ -1,14 +1,37 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Product index{% endblock %}
+
 {% block stylesheets %}
+
   <style>
+{# tablet view     #}
+       @media (min-width: 768px){
+	
+	body {
+		max-width: 778px;
+	}
+         #container {
+    
+       display: grid;
+        grid-template-columns: 50% 50%;
+        grid-template-rows: 50% 50%;
+        
+   
+        
+}
+@media (min-width: 1024px){
+	
+	body {
+		max-width: 1200px;
+	}
+        
     #container {
     
        display: grid;
         grid-template-columns: 20% 20% 20% 20% 20%;
-        grid-template-rows: 20% 20% 20% 20% 20%;
-}
+        grid-template-rows: 20% 20% 20% 20% 20%;    
+ 
     </style>
         {% endblock %}
 
@@ -18,7 +41,7 @@
   integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
   crossorigin="anonymous"></script>
   
-  
+   {{ include('product/_navigationMenu.html.twig') }}
     
 
     <h1>Produse scoase la licitatie </h1>
@@ -27,7 +50,7 @@
      <div id ="container">  
         {% for product in products %}
        
-       <div>
+      {# <div>
           
             <div id="productTitle"> Produs: {{ product.productTitle }} </div>
             
@@ -36,9 +59,25 @@
                              <div id="productDescription"> Descriere:  {{ product.productDescription }}</div>
                                 <div id="ultimulPretLicitat">  Ultimul Pret Licitat: {{ product.ultimulPretLicitat }}</div>
                                 
-         <a href="{{ path('product_show', {'productId': product.productId}) }}">show</a>                    
+         <a href="{{ path('product_show', {'productId': product.productId}) }}">Arata detalii / Liciteaza</a>                    
                            
-       </div>  
+       </div>  #}
+   <div class="card" style="width: 200px; height: 500px; position:relative">
+   
+         <h5 class="card-title"> {{ product.productTitle }}</h5>
+  <img style="width: 200px; height: 250px" src="/uploads/{{ product.photoA }}" class="card-img-top" alt="...">
+  <div class="card-body">
+    
+    {#<p class="card-text">{{ product.productDescription }}</p>#}
+   <hr>
+    <p class="card-text">Pret Licitat: {{ product.ultimulPretLicitat }}</p>
+    
+    <a style="position: absolute; left: 1px; bottom: 20px;" href="{{ path('product_show', {'productId': product.productId}) }}" class="btn btn-secondary btn-sm">Detalii / Liciteaza</a>
+    <a style="position: absolute; right: 1px; bottom: 20px;" href="{{ path('addToFavorites', {'productId': product.productId}) }}" class =" btn btn-secondary btn-sm">Favorite</a>
+     
+  </div>
+</div>
+       
        
         
         
@@ -56,17 +95,21 @@
                 
    </script> 
                    {# <a href="{{ path('product_show', {'productId': product.productId}) }}">show</a>#}
-                     {% if is_granted('ROLE_ADMIN') %}   {#{% endif %}#}
-                    <a href="{{ path('product_edit', {'productId': product.productId}) }}">edit</a>
-                    {% endif%}
+                   {#  {% if is_granted('ROLE_ADMIN') %}   {#{% endif %}#}
+{#                    <a href="{{ path('product_edit', {'productId': product.productId}) }}">edit</a>#}
+                   {# {% endif%}#}
         {% else %}
             
             <div colspan="12">no records found</div>
             
         {% endfor %}
-</div>    
+{#</div>   #} 
     
-{%if is_granted('ROLE_ADMIN') %} 
-    <a href="{{ path('product_new') }}">Create new</a>
-{%endif%}
+{#{%if is_granted('ROLE_ADMIN') %} #}
+  {#  <a href="{{ path('product_new') }}">Create new</a>#}
+{#{%endif%}#}
+     </div>
+{{ include('product/_footer.html.twig') }}
 {% endblock %}
+
+

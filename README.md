@@ -58,6 +58,19 @@ logout:
                 path: app_logout
                 # where to redirect after logout
                 target: product_index
+                invalidate_session: false
+(daca vrei sa pastrezi date de sesiune la logout)
+
+pt sessiune in packabes /framework yaml 
+session:
+        enabled: true
+        handler_id: null
+#        handler_id: ~
+        handler_id: session.handler.native_file
+        save_path: '%kernel.project_dir%/var/sessions/%kernel.environment%'
+        cookie_lifetime: 604800
+        cookie_secure: 'auto'
+        cookie_samesite: 'lax'
 
 ///////////////////////////////////////////////
  de testat pt creare user mai complet 

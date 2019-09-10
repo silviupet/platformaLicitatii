@@ -22,9 +22,23 @@ class AdminController extends AbstractController
      */
     public function admin(ProductRepository $productRepository): Response
     {
+         $userEmail = $this->getUser();
+     
+       if ($userEmail ==null){
         return $this->render('product/index.html.twig', [
             'products' => $productRepository->findAll(),
-        ]);
+//          'user' => $userEmail->getEmail(),
+            'message' =>''
+       ]);         
+       } else 
+        return $this->render('product/index.html.twig', [
+           'products' => $productRepository->findAll(),
+          'user' => $userEmail->getEmail(),
+            'message' =>''
+     ]);               
+//        return $this->render('product/index.html.twig', [
+//            'products' => $productRepository->findAll(),
+//        ]);
     }
 
     

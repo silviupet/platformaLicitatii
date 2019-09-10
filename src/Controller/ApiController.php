@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Product;
 use App\Repository\ProductRepository;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ApiController extends AbstractController
 {
@@ -21,12 +22,10 @@ class ApiController extends AbstractController
         ->createQuery('SELECT p FROM App\Entity\Product p WHERE p.dataStop >= CURRENT_DATE()')
         ->getResult();
       
-    
+//   $products.JSON.parse();
        
      
-    return new Response
-       
-       (json_decode($products));
+    return new JsonResponse($products);
  
     }
 

@@ -9,91 +9,95 @@
         grid-template-columns: 15% 15% 15% 15% 15% 15%;
         grid-template-rows: 20% 20% 20% 20% 20%;
 }
+img {
+  border: 1px solid #ddd; /* Gray border */
+  border-radius: 4px;  /* Rounded border */
+  padding: 5px; /* Some padding */
+  width: 150px; /* Set a small width */
+}
+
+/* Add a hover effect (blue shadow) */
+img:hover {
+  box-shadow: 0 0 2px 1px rgba(0, 140, 186, 0.5);
+}
     </style>
         {% endblock %}
-
-
+    
 {% block body %}
-{#    <h1>Product</h1>#}
-
-   {# <table class="table">
-        <tbody>
-            <tr>
-                <th>ProductId</th>#}
-               {# <div>{{ product.productId }}</div>#}
-            {#</tr>
-            <tr>
-                <th>UserId</th>#}
-                {#<div>{{ product.userId }}</div>#}
-           {# </tr>
-            <tr>#}
+{{ include('product/_navigationMenu.html.twig') }}
        
     <div> Titlu: {{ product.productTitle }}</div>
-           {# </tr>
-            <tr>
-                <th>ProductDescription</th>#}
+    
+   
+
+
+
+
+
+
+           
            <div id="container">  
-                <img style="max-width: 200px" src="/uploads/{{ product.photoA }}">
-{#                <div id="photoA"><img style="max-width: 200px" src="/uploads/{{ product.photoA }}"</div> #}
-           {# </tr>
-            <tr>
-                <th>PhotoB</th>#}
+{#                <img style="max-width: 200px" src="/uploads/{{ product.photoA }}">#}
+                <a {#target="_blank"#} href="/uploads/{{ product.photoA }}">
+                    <img style="max-width: 200px"src="/uploads/{{ product.photoA }}">
+                </a>
+
                 {% if product.PhotoB|default(null) %}
-               <img style="max-width: 200px" src="/uploads/{{ product.photoB }}">
+{#               <img style="max-width: 200px" src="/uploads/{{ product.photoB }}">#}
+                <a {#target="_blank"#} href="/uploads/{{ product.photoB }}">
+                    <img style="max-width: 200px"src="/uploads/{{ product.photoB }}">
+                </a>
                {%endif%}
                 
                  {% if product.PhotoC|default(null) %}
-                <img style="max-width: 200px" src="/uploads/{{ product.photoC }}">
+{#                 <img style="max-width: 200px" src="/uploads/{{ product.photoA }}">#}
+                <a {#target="_blank"#} href="/uploads/{{ product.photoC }}">
+                    <img style="max-width: 200px"src="/uploads/{{ product.photoC }}">
+                </a>
                 {%endif%}
                  
                   {% if product.PhotoD|default(null) %}
-                <img style="max-width: 200px" src="/uploads/{{ product.photoD }}">
+{#                <img style="max-width: 200px" src="/uploads/{{ product.photoD }}">#}
+                 <a {#target="_blank"#} href="/uploads/{{ product.photoD }}">
+                    <img style="max-width: 200px"src="/uploads/{{ product.photoD }}">
+                </a>
                 {%endif%}
                   
                    {% if product.PhotoE|default(null) %}
-                <img style="max-width: 200px" src="/uploads/{{ product.photoE }}">
+{#                <img style="max-width: 200px" src="/uploads/{{ product.photoE }}">#}
+                <a {#target="_blank"#} href="/uploads/{{ product.photoE }}">
+                    <img style="max-width: 200px"src="/uploads/{{ product.photoE }}">
+                </a>
                 {%endif%}
                    
                     {% if product.PhotoF|default(null) %}
-                <img style="max-width: 200px" src="/uploads/{{ product.photoF }}">
+{#                <img style="max-width: 200px" src="/uploads/{{ product.photoF }}">#}
+                     <a {#target="_blank" #}href="/uploads/{{ product.photoF }}">
+                    <img style="max-width: 200px"src="/uploads/{{ product.photoF }}">
+                     </a>
                 {%endif%}
          </div>       
-                   
-            {#</tr>
-            <tr>#}
-                {#<th>PhotoC</th>
-                <td><div id="photoC"><img style="max-width: 200px" src="/uploads/{{ product.photoC }}"</div></td>
-            </tr>
-            <tr>
-                <th>PhotoD</th>
-                <td><div id="photoD"><img style="max-width: 200px" src="/uploads/{{ product.photoD }}"</div></td>
-            </tr>
-            <tr>
-                <th>PhotoE</th>
-                <td><div id="photoE"><img style="max-width: 200px" src="/uploads/{{ product.photoE }}"</div></td>
-            </tr>
-            <tr>
-                <th>PhotoF</th>
-                <td><div id="photoF"><img style="max-width: 200px" src="/uploads/{{ product.photoF }}"</div></td>
-            </tr>#}
-            {#<tr>
-                <th>Category</th>#}
+                 
+       {#  <div class="card"style="width: 500px; height: 200px; position:relative">
+ 
+  <div class="container">
+    <P>Categorie: {{ product.category }}</P>
+    <p>Pret Pornire: {{ product.pretPornire }}</p>
+    <p>Data Stop Licitiatie: {{ product.dataStop.format('Y-m-d') }}</p>
+    <p>Ultimul pret licitat: {{ product.ultimulPretLicitat }}</p>
+  </div>
+</div>#}
+         
+         <div class="card-text">Descriere: {{ product.productDescription }}</div>
+            
                 <div> Categorie: {{ product.category }}</div>
-           {# </tr>
-            <tr>#}
-              {#  <th>pret pornire</th>#}
+           
                 <div>Pret Pornire: {{ product.pretPornire }}</div>
-           {# </tr>
-            <tr>
-                <th>Data stop</th>#}
+          
                <div>Data Stop Licitiatie: {{ product.dataStop.format('Y-m-d') }}</div>
-           {# </tr>
-             <tr>
-                <th>Ultimul pret licitat</th>#}
+          
                <div>Ultimul pret licitat: {{ product.ultimulPretLicitat }}</div>
-            {#</tr>
-        </tbody>
-    </table>#}
+         
        
  <form id ="ad_form" method ="POST" action="{{path('addLicitatie', {'productId': product.productId})}}">
 {# action="{{path('addLicitatie')}}" ca sa adaugam numele rutei si nu ruta definita la LicitatieController     #}
@@ -119,4 +123,5 @@
  {% if is_granted('ROLE_ADMIN') %}   
     {{ include('product/_delete_form.html.twig') }}
     {%endif%}
+    {{ include('product/_footer.html.twig') }}
 {% endblock %}

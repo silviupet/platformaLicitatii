@@ -28,13 +28,32 @@ class MyProductsController extends AbstractController
      */
     public function index(ProductRepository $productRepository): Response
     {
-        
-        
+         $userEmail = $this->getUser();
+       
+       if ($userEmail ==null){
         return $this->render('my_products/index.html.twig', [
             'products' => $productRepository->findBy([
                 'userId' => $this->getUser()->getUserId()
-            ]),
-        ]);
+                     ]),
+//          'user' => $userEmail->getEmail(),
+            'message' =>''
+      
+       ]);               
+       } else 
+        return $this->render('my_products/index.html.twig', [
+            'products' => $productRepository->findBy([
+                'userId' => $this->getUser()->getUserId()
+                     ]),
+         'user' => $userEmail->getEmail(),
+            'message' =>''
+    
+            ]);
+        
+//        return $this->render('my_products/index.html.twig', [
+//            'products' => $productRepository->findBy([
+//                'userId' => $this->getUser()->getUserId()
+//            ]),
+//        ]);
     }
 
 
@@ -159,23 +178,7 @@ class MyProductsController extends AbstractController
           return $this->redirectToRoute('my_products');
         }
 //
-//      return $this->render('product/edit.html.twig', [
-//        'product' => $product,
-//         'form' => $form->createView(),
-//       ]);
- 
-//        
-//        
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            $this->getDoctrine()->getManager()->flush();
-////de bagat cod aici 
-//            return $this->redirectToRoute('my_products');
-//        }
-//
-//        return $this->render('product/edit.html.twig', [
-//            'product' => $product,
-//            'form' => $form->createView(),
-//        ]);
+//    
  
 /**
 * @return string

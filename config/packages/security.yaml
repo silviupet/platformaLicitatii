@@ -23,6 +23,12 @@ security:
                 path: app_logout
                 # where to redirect after logout
                 target: product_index
+                invalidate_session: false
+            form_login:
+                login_path: app_login
+                # where to redirect after login
+                default_target_path: product_index
+                
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -37,7 +43,7 @@ security:
           - { path: ^/product/new, roles: ROLE_USER }
           - { path: ^/product/\d/.*$, roles: ROLE_USER }
           - { path: ^/product/\d, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-         
+       
           
           - { path: ^/login.*$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
           - { path: ^/register.*$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
