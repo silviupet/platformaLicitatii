@@ -100,11 +100,11 @@ public function addCart( Request $request): Response {
                 $productId => [
                     "Titlu" => $product->getProductTitle(),
                     "Descriere" => $product->getProductDescription(),
-                    "photoA" => '<img style="width: 200px; height: 250px" src="/uploads/'.$product->getPhotoA(). 'class="card-img-top" alt="...">',
-//                    "photoA" => $product ->getPhotoA(),
+//                    "photoA" => '<img style="width: 200px; height: 250px" src="/uploads/'.$product->getPhotoA(). 'class="card-img-top" alt="...">',
+                  "photoA" => $product ->getPhotoA(),
                     "pretPornire " => $product->getPretPornire(),
                     "ultimulPretLicitat" => $product->getUltimulPretLicitat(),
-//                   "dataStop" => $product->getDataStop()
+                 "dataStop" => $product->getDataStop()->format("Y-m-d")
 //                    "dataStop" => new \DateTime($product->getDataStop())
                     
                     
@@ -134,7 +134,7 @@ public function addCart( Request $request): Response {
         return $this->render('product/favorites.html.twig', [
             'cart'=>$cart,
             'product' => $product,
-         'user' => $userEmail->getEmail(),
+            'user' => $userEmail->getEmail(),
             'message' =>''
      ]);               
         }
@@ -144,13 +144,13 @@ public function addCart( Request $request): Response {
                     "Titlu" => $product->getProductTitle(),
                     "Descriere" => $product->getProductDescription(),
 //                    "photoA" => "$dir".'/'.$product->getPhotoA(),
-//                     "photoA" => 'uploads/'.$product->getPhotoA(),
-                      "photoA" => '<img style="width: 200px; height: 250px" src="/uploads/'.$product->getPhotoA(). 'class="card-img-top" alt="...">',
+                    "photoA" => $product->getPhotoA(),
+//                      "photoA" => '<img style="width: 200px; height: 250px" src="/uploads/'.$product->getPhotoA(). 'class="card-img-top" alt="...">',
                     
 //                      <img style="width: 200px; height: 250px" src="/uploads/{{ product.photoA }}" class="card-img-top" alt="...">
                     "pretPornire " => $product->getPretPornire(),
                     "ultimulPretLicitat" => $product->getUltimulPretLicitat(),
-//                   "dataStop" => $product->getDataStop()
+                  "dataStop" => $product->getDataStop()->format("Y-m-d")
                 
             ];
     
@@ -172,7 +172,7 @@ public function addCart( Request $request): Response {
         return $this->render('product/favorites.html.twig', [
             'cart'=>$cart,
             'product' => $product,
-         'user' => $userEmail->getEmail(),
+            'user' => $userEmail->getEmail(),
             'message' =>''
      ]);               
     }

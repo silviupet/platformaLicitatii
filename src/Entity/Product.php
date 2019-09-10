@@ -14,8 +14,14 @@ use Doctrine\DBAL\Types\DateTimeType;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
  */
-class Product
+class Product implements \JsonSerializable
 {
+//    pt randare josn ca sa aiba acces la proprietatile private ale entitatii product
+     public function jsonSerialize()
+    {
+        return get_object_vars($this);
+    }
+    
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -308,4 +314,6 @@ class Product
         
        
 }
+
+   
 }

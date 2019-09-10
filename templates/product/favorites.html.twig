@@ -44,7 +44,10 @@
     
     {% for key2, value2 in cart[key1] %}
        
-        
+       {% if key2=="photoA"%}
+       <img style="width: 200px; height: 250px" src="/uploads/{{ product.photoA }}" class="card-img-top" alt="...">
+           {%endif%}
+
          <div class="card" style="width: 300px; height: 150px; position:relative"> 
          
        <div class="card-body" >

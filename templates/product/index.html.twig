@@ -70,7 +70,8 @@
     
     {#<p class="card-text">{{ product.productDescription }}</p>#}
    <hr>
-    <p class="card-text">Pret Licitat: {{ product.ultimulPretLicitat }}</p>
+   <p class="card-text">Pret Licitat: <div id="container{{product.productId}}"></div> {#{{ product.ultimulPretLicitat }}#}</p>
+    {#<div id="container1"> ultim pret Licitat</div>#}
     
     <a style="position: absolute; left: 1px; bottom: 20px;" href="{{ path('product_show', {'productId': product.productId}) }}" class="btn btn-secondary btn-sm">Detalii / Liciteaza</a>
     <a style="position: absolute; right: 1px; bottom: 20px;" href="{{ path('addToFavorites', {'productId': product.productId}) }}" class =" btn btn-secondary btn-sm">Favorite</a>
@@ -84,8 +85,8 @@
           
     <script>
     setInterval(function(){
-       $.getJSON("/apiindex" , function(data){
-           $('#container1').text(data.ultimulPretLicitat)
+       $.getJSON("/api/{{product.productId}}" , function(data){
+           $('#container{{product.productId}}').text(data.ultimulPretLicitat)
        }
        )
     }, 5000)

@@ -10,6 +10,7 @@ use App\Entity\Product;
 use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
+
 class ApiController extends AbstractController
 {
     /**
@@ -33,17 +34,16 @@ class ApiController extends AbstractController
      /**
      * @Route("/api/{productId}", name="api_show", methods={"GET"},requirements={"productId":"\d+"})
      */
-    public function show(Product $product, Request $request): Response
+    public function show($productId): Response
     {
         
-        $productId = $request->query->get('ProductId');
        $repo =$this->getDoctrine()->getRepository(Product::class);
        $product = $repo->findOneBy([
            'productId'=>$productId
        ]);        
       
-       dump($product);
-      return new Response(json_encode($product));
+//       dump($product);
+      return new JsonResponse($product);
 //        
     }
 }
