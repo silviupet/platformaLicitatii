@@ -72,6 +72,12 @@ session:
         cookie_secure: 'auto'
         cookie_samesite: 'lax'
 
+pt login 
+form_login:
+               login_path: app_login
+
+               use_referer: true (daca vrei ca dupa login sa revina la pagina principala
+
 ///////////////////////////////////////////////
  de testat pt creare user mai complet 
 composer require msgphp/user-bundle

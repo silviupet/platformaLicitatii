@@ -29,7 +29,7 @@ class LicitatieController extends AbstractController
     public function addLicitatie(Request $request)
     {
     
-       
+        $this->denyAccessUnlessGranted(['ROLE_USER']);
         if(!$request->request->has('pretLicitat') ){
            return $this->redirectToRoute('product_index');
 //         

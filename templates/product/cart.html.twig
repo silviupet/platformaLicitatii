@@ -39,13 +39,13 @@
 {{ include('product/_navigationMenu.html.twig') }}
  {#<div id="container">  #}
    <div id="mare" class="row">  
-{% for key1, value1 in cart %}
+{% for productId, value1 in cart %}
   <div id= "mic"  class="col-sm-3">
     
-    {% for key2, value2 in cart[key1] %}
+    {% for key2, value2 in cart[productId] %}
        
        {% if key2=="photoA"%}
-       <img style="width: 200px; height: 250px" src="/uploads/{{ product.photoA }}" class="card-img-top" alt="...">
+       <img style="width: 200px; height: 250px" src="/uploads/{{ cart[productId]["photoA"] }}" class="card-img-top" alt="...">
            {%endif%}
 
          <div class="card" style="width: 300px; height: 150px; position:relative"> 
@@ -60,7 +60,7 @@
     {% endfor %}
    {# <form action="{{path('product_edit',{'productId':product.productId})}}" method="POST" enctype="multipart/form-data">
        <input type="hidden" name="productId" value="{{product.productId}}"></input>#}
-        <a style="position: absolute; left: 50px; bottom: 2px;" href="{{ path('removecart',{'productId':key1}) }}" class="btn btn-secondary btn-sm">sterge din favorite</a>  
+        <a style="position: absolute; left: 50px; bottom: 2px;" href="{{ path('removecart',{'productId':productId}) }}" class="btn btn-secondary btn-sm">sterge din favorite</a>  
   </div>   
 {% endfor %}
    </div>

@@ -66,7 +66,7 @@ class MyProductsController extends AbstractController
  */
     public function edit(Request $request, Product $product): Response
     {
-        
+     $this->denyAccessUnlessGranted(['ROLE_USER']);   
      
     $repo =$this->getDoctrine()->getRepository(Product::class);
     $product=$repo->findOneBy([
@@ -171,7 +171,7 @@ class MyProductsController extends AbstractController
             return $this->render('product/edit.html.twig',
                     [
                        'product'=>$product,
-                    
+                        'user'=>$this->getUser()->getEmail()
                     
                     ]);
 //

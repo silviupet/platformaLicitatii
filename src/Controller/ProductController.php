@@ -22,9 +22,9 @@ class ProductController extends AbstractController
      * @Route("/", name="product_index", methods={"GET"})
      * 
      */
-    public function index(ProductRepository $productRepository): Response
+    public function index(Request $request): Response
     {
-//     
+//     $product = $this->getDoctrine() ->getRepository(Product::Class);
        $products = $this->getDoctrine()->getManager()
         ->createQuery('SELECT p FROM App\Entity\Product p WHERE p.dataStop >= CURRENT_DATE()')
         ->getResult();
@@ -49,7 +49,7 @@ class ProductController extends AbstractController
      */
     public function new(Request $request): Response
     {
-
+        $this->denyAccessUnlessGranted(['ROLE_USER']);
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
@@ -208,180 +208,20 @@ class ProductController extends AbstractController
 
     /**
      * @Route("/{productId}", name="product_delete", methods={"DELETE"}, requirements={"productId":"\d+"})
+     * @param Product
      */
     public function delete(Request $request, Product $product): Response
     {
         if ($this->isCsrfTokenValid('delete'.$product->getProductId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
+//            $photoA = $product->getPhotoA();
+//           dump($photoA);
             $entityManager->remove($product);
             $entityManager->flush();
+
         }
 
         return $this->redirectToRoute('product_index');
     }
 }
-//    cart my favorites products
-//    public function __construct() {
-//        $cart = $request -> getSession()->get('cart');
-//        if(!isset($cart)){
-//            session()->put('cart', array());
-//        }
-//    }
-
-
-/**
- * @Route("/myfavorites", methods={"GET"}, name="favorites")
- */
-//    public function cart(Request  $request){
-//       $session = $request -> getSession();
-//                 
-//         $cart = $session->get('cart');
-//        
-//         
-//        if(!isset($cart)){
-//            $cart = [];
-//            $session->set('cart', array());
-//           
-//        }
-//         $productId = $request->query->get('productId');
-//        
-//        $repo =$this->getDoctrine()->getRepository(Product::class);
-//    $product=$repo->findOneBy([
-//       'productId'=>$productId
-//       ]);
-//        
-////        if(!$product) {
-////            abort(404);
-////        }
-//        $cart = $session->get('cart');
-//        
-//        // if cart is empty then this the first product
-//        
-//        if(!$cart) {
-//            
-//            
-//            $cart = [
-//                $productId => [
-//                    "Titlu" => $product->getProductTitle(),
-//                    "Descriere" => $product->getProductDescription(),
-//                    "photoA" => $product ->getPhotoA(),
-//                    "pretPornire " => $product->getPretPornire(),
-//                    "ultimulPretLicitat" => $product->getUltimulPretLicitat(),
-////                   "dataStop" => $product->getDataStop()
-////                    "dataStop" => new \DateTime($product->getDataStop())
-//                    
-//                    
-//                    
-//                ]
-//            ];
-//       dump($cart);   
-//            $session->set('cart', $cart);
-//          
-//               $this->addFlash(
-//                'info',
-//                'Produsul adaugat la favorite '
-//            );
-//               return $this->render('product/favorites.html.twig',[
-//            'cart'=>$cart,
-//            'product' =>$product
-//        ]);
 //
-////            return new Response ('Product added to cart successfully!');
-//        }
-//        // if cart not empty then check if this product exist  and if not it will be add
-//      
-//        
-//      
-//        
-//        if(isset($cart[$productId])) {
-//       return new Response("este setat produsul $productId");
-////            $this->addFlash(
-////                'info',
-////                'Produsul este deja la favorite ');
-////             return $this->render('product/favorites.html.twig',[
-////            'cart'=>$cart,
-////            'product' =>$product
-////        ]);
-//        }
-//        // if item not exist in cart then add to cart 
-//       $productId = $request->query->get('productId'); 
-//        $repo =$this->getDoctrine()->getRepository(Product::class);
-//    $product=$repo->findOneBy([
-//       'productId'=>$productId
-//       ]);
-//       
-//        $productId = [
-//                    "Title" => $product->getProductTitle(),
-//                    "Description" => $product->getProductDescription(),
-//                    "photoA" => $product ->getPhotoA(),
-//                    "pretPornire " => $product->getPretPornire(),
-//                    "ultimulPretLicitat" => $product->getUltimulPretLicitat(),
-//                    "dataStop" => $product->getDataStop()
-//                ];
-              
-                
-//        array_push($cart,$productId);
-    
-//    dump($dir);
-//    $cart[$productId]
-//                 = [
-//                    "Titlu" => $product->getProductTitle(),
-//                    "Descriere" => $product->getProductDescription(),
-////                    "photoA" => "$dir".'/'.$product->getPhotoA(),
-//                     "photoA" => 'uploads/'.$product->getPhotoA(),
-//                    
-////                      <img style="width: 200px; height: 250px" src="/uploads/{{ product.photoA }}" class="card-img-top" alt="...">
-//                    "pretPornire " => $product->getPretPornire(),
-//                    "ultimulPretLicitat" => $product->getUltimulPretLicitat(),
-////                   "dataStop" => $product->getDataStop()
-//                
-//            ];
-//    
-//    
-//        $session->set('cart', $cart);
-//      dump($session);
-//               $this->addFlash(
-//                'info',
-//                'Produsul adaugat la favorite '
-//            );
-//        
-//        
-//        
-//        
-//        return $this->render('product/favorites.html.twig',[
-//            'cart'=>$cart,
-//            'product' =>$product
-//        ]);
-//    }
-//}
-
-//     public function addToCart(Request  $request)
-//    {
-//        $productId = $request->query->get('productId');
-//        
-//        $repo =$this->getDoctrine()->getRepository(Product::class);
-//    $product=$repo->findOneBy([
-//       'productId'=>$productId
-//       ]);
-//        
-////        if(!$product) {
-////            abort(404);
-////        }
-//        $cart = $session->get('cart');
-//        // if cart is empty then this the first product
-//        if(!$cart) {
-//            $cart = [
-//                $productId => [
-//                    "Title" => $product->getProductTitle(),
-//                    "Description" => $product->getProductDescription(),
-//                    "photoA" => $product ->getPhotoA(),
-//                    "pretPornire " => $product->getPretPornire(),
-//                    "ultimulPretLicitat" => $product->getUltimulPretLicitat(),
-//                    "dataStop" => $product->getDataStop()
-//                ]
-//            ];
-//            $session()->set('cart', $cart);
-//            return new Response ('Product added to cart successfully!');
-//        }
-//}
-//}

@@ -15,11 +15,13 @@
     
        display: grid;
         grid-template-columns: 50% 50%;
-        grid-template-rows: 50% 50%;
+{#        grid-template-rows: 50% 50%;#}
+       
         
    
         
-}
+    }
+ 
 @media (min-width: 1024px){
 	
 	body {
@@ -30,8 +32,10 @@
     
        display: grid;
         grid-template-columns: 20% 20% 20% 20% 20%;
-        grid-template-rows: 20% 20% 20% 20% 20%;    
- 
+{#        grid-template-rows: 20% 20% 20% 20% 20%;    #}
+    
+
+
     </style>
         {% endblock %}
 
@@ -50,18 +54,7 @@
      <div id ="container">  
         {% for product in products %}
        
-      {# <div>
-          
-            <div id="productTitle"> Produs: {{ product.productTitle }} </div>
-            
-                 <img style="max-width: 200px" src="/uploads/{{ product.photoA }}"> 
-         
-                             <div id="productDescription"> Descriere:  {{ product.productDescription }}</div>
-                                <div id="ultimulPretLicitat">  Ultimul Pret Licitat: {{ product.ultimulPretLicitat }}</div>
-                                
-         <a href="{{ path('product_show', {'productId': product.productId}) }}">Arata detalii / Liciteaza</a>                    
-                           
-       </div>  #}
+
    <div class="card" style="width: 200px; height: 500px; position:relative">
    
          <h5 class="card-title"> {{ product.productTitle }}</h5>
@@ -74,7 +67,7 @@
     {#<div id="container1"> ultim pret Licitat</div>#}
     
     <a style="position: absolute; left: 1px; bottom: 20px;" href="{{ path('product_show', {'productId': product.productId}) }}" class="btn btn-secondary btn-sm">Detalii / Liciteaza</a>
-    <a style="position: absolute; right: 1px; bottom: 20px;" href="{{ path('addToFavorites', {'productId': product.productId}) }}" class =" btn btn-secondary btn-sm">Favorite</a>
+    <a style="position: absolute; right: 1px; bottom: 20px;" href="{{ path('addFavorites', {'productId': product.productId}) }}" class =" btn btn-secondary btn-sm">Favorite</a>
      
   </div>
 </div>

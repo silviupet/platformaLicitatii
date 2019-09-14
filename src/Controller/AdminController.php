@@ -22,6 +22,7 @@ class AdminController extends AbstractController
      */
     public function admin(ProductRepository $productRepository): Response
     {
+        $this->denyAccessUnlessGranted(['ROLE_ADMIN']);
          $userEmail = $this->getUser();
      
        if ($userEmail ==null){
@@ -35,7 +36,8 @@ class AdminController extends AbstractController
            'products' => $productRepository->findAll(),
           'user' => $userEmail->getEmail(),
             'message' =>''
-     ]);               
+     ]);   
+       return $this->redirectToRoute('product_index');
 //        return $this->render('product/index.html.twig', [
 //            'products' => $productRepository->findAll(),
 //        ]);

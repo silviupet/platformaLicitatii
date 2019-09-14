@@ -1,20 +1,75 @@
-{% extends 'base.html.twig' %}
+{%extends 'base.html.twig' %}
 
-{% block title %}Hello CartController!{% endblock %}
+{% block title %}my favorites{% endblock %}
 
-{% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
+{% block stylesheets %}
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <style>
+        {# tablet view     #}
+        @media (min-width: 768px){
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/xampp/htdocs/platformadelicitatii/src/Controller/CartController.php'|file_link(0) }}">src/Controller/CartController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/xampp/htdocs/platformadelicitatii/templates/cart/index.html.twig'|file_link(0) }}">templates/cart/index.html.twig</a></code></li>
-    </ul>
-</div>
+            body {
+                max-width: 778px;
+            }
+            #container {
+
+                display: grid;
+                grid-template-columns: 50% 50%;
+                grid-template-rows: 50% 50%;
+
+
+
+            }
+            @media (min-width: 1024px){
+
+                body {
+                    max-width: 1200px;
+                }
+
+                #container {
+
+                    display: grid;
+                    grid-template-columns: 20% 20% 20% 20% 20%;
+                    grid-template-rows: 20% 20% 20% 20% 20%;
+
+    </style>
 {% endblock %}
+{% block body %}
+
+    {{ include('product/_navigationMenu.html.twig') }}
+    {#<div id="container">  #}
+    <div id="mare" class="row">
+        {% for productId, value1 in cart %}
+            <div id= "mic"  class="col-sm-3">
+
+                {% for key2, value2 in cart[productId] %}
+
+                    {% if key2=="photoA"%}
+                        <img style="width: 200px; height: 250px" src="/uploads/{{ cart[productId]["photoA"] }}" class="card-img-top" alt="...">
+                    {%endif%}
+
+                    <div class="card" style="width: 300px; height: 150px; position:relative">
+
+                        <div class="card-body" >
+                            <p class="card-text">{{ key2 }}</p>
+                            <p class="card-text">{{ value2 }}</p>
+
+                        </div>
+                    </div>
+                    {#     </div>  #}
+                {% endfor %}
+                {# <form action="{{path('product_edit',{'productId':product.productId})}}" method="POST" enctype="multipart/form-data">
+                    <input type="hidden" name="productId" value="{{product.productId}}"></input>#}
+                <a style="position: absolute; left: 50px; bottom: 2px;" href="{{ path('removecart',{'productId':productId}) }}" class="btn btn-secondary btn-sm">sterge din favorite</a>
+            </div>
+        {% endfor %}
+    </div>
+
+    {#{% for carts in cart %}
+
+    <div>{{cart[product.productId]["Titlu"]}}</div>#}
+
+    {#{{  dump(cart[product.productId])}}#}
+    {#{%endfor%}#}
+
+{%endblock%}

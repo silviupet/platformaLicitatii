@@ -11,7 +11,7 @@ use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use App\Entity\Licitatie;
-//use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class CartController extends AbstractController {
 //    private $session;
@@ -21,9 +21,11 @@ class CartController extends AbstractController {
 //        $this->session = $session;
 //    }
 /**
- * @Route("/myfavorites", methods={"GET"}, name="favorites")
+ * @Route("/mycart", methods={"GET"}, name="mycart")
  */
     public function indexCart(Request $request): Response{
+//        $session = new Session();
+//        $session->start();
        
 //       $cart = $this->session->get('cart');
          $session = $request -> getSession();
@@ -35,14 +37,14 @@ class CartController extends AbstractController {
             $userEmail = $this->getUser();
      
        if ($userEmail ==null){
-        return $this->render('product/favorites.html.twig', [
+        return $this->render('cart/index.html.twig', [
             'cart'=>$cart,
             'product' => $product,
 //          'user' => $userEmail->getEmail(),
             'message' =>''
        ]);         
        } else 
-        return $this->render('product/favorites.html.twig', [
+        return $this->render('cart/index.html.twig', [
             'cart'=>$cart,
             'product' => $product,
          'user' => $userEmail->getEmail(),
@@ -50,7 +52,7 @@ class CartController extends AbstractController {
      ]);               
         
          
-//          return $this->render('product/favorites.html.twig',[
+//          return $this->render('product/cart.html.twig',[
 //            'cart'=>$cart,
 //            'product' =>$product,
 //             'user'=>''
@@ -58,11 +60,13 @@ class CartController extends AbstractController {
         
     }
 /**
-* @Route("addToFavorites", name="addToFavorites", methods={"GET", "POST"}, requirements={"productId":"\d+"})
+* @Route("addToCart", name="addToCart", methods={"GET", "POST"}, requirements={"productId":"\d+"})
 * @param Request $request
 */  
 public function addCart( Request $request): Response {
-        $session = $request -> getSession();
+    $session = new Session();
+//    $session->start();
+        
         $cart = $session->get('cart');
 //         $cart = $this->session->get('cart');
          
@@ -115,6 +119,7 @@ public function addCart( Request $request): Response {
 //            $this->session->set('cart', $cart);
             $session->set('cart', $cart);
             
+            
         // if cart not empty then check if this product exist  and if not it will be add
        
         if(isset($cart[$productId])) {
@@ -124,14 +129,14 @@ public function addCart( Request $request): Response {
 //                'Produsul este deja la favorite ');
              $userEmail = $this->getUser();
             if ($userEmail ==null){
-        return $this->render('product/favorites.html.twig', [
+        return $this->render('cart/index.html.twig', [
             'cart'=>$cart,
             'product' => $product,
 //          'user' => $userEmail->getEmail(),
             'message' =>''
        ]);         
        } else 
-        return $this->render('product/favorites.html.twig', [
+        return $this->render('cart/index.html.twig', [
             'cart'=>$cart,
             'product' => $product,
             'user' => $userEmail->getEmail(),
@@ -156,20 +161,21 @@ public function addCart( Request $request): Response {
     
 //     $this->session->set('cart', $cart);
         $session->set('cart', $cart);
+        
 //        dump($session);
             
         $userEmail = $this->getUser();  
         
 //             
              if ($userEmail ==null){
-        return $this->render('product/favorites.html.twig', [
+        return $this->render('cart/index.html.twig', [
             'cart'=>$cart,
             'product' => $product,
 //          'user' => $userEmail->getEmail(),
             'message' =>''
        ]);         
        } else 
-        return $this->render('product/favorites.html.twig', [
+        return $this->render('cart/index.html.twig', [
             'cart'=>$cart,
             'product' => $product,
             'user' => $userEmail->getEmail(),
@@ -200,14 +206,14 @@ public function addCart( Request $request): Response {
             dump($product);
 //             
              if ($userEmail ==null){
-        return $this->render('product/favorites.html.twig', [
+        return $this->render('cart/index.html.twig', [
             'cart'=>$cart,
             'product' => $product,
 //          'user' => $userEmail->getEmail(),
             'message' =>''
        ]);         
        } else 
-        return $this->render('product/favorites.html.twig', [
+        return $this->render('cart/index.html.twig', [
             'cart'=>$cart,
             'product' => $product,
          'user' => $userEmail->getEmail(),
