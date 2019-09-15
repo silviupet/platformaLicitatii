@@ -22,7 +22,14 @@ class AdminController extends AbstractController
      */
     public function admin(ProductRepository $productRepository): Response
     {
+        if($this->isGranted("IS_AUTHENTICATED_FULLY")){
+            return $this->redirectToRoute('product_index');
+
+        }
         $this->denyAccessUnlessGranted(['ROLE_ADMIN']);
+
+
+
          $userEmail = $this->getUser();
      
        if ($userEmail ==null){

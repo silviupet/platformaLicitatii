@@ -13,6 +13,8 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Licitatie;
 
 
+
+
 /**
  * @Route("/product")
  */
@@ -214,14 +216,39 @@ class ProductController extends AbstractController
     {
         if ($this->isCsrfTokenValid('delete'.$product->getProductId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
-//            $photoA = $product->getPhotoA();
-//           dump($photoA);
-            $entityManager->remove($product);
-            $entityManager->flush();
+            $oldFileName = $product->getPhotoA();
+            $this->removeFile($oldFileName);
 
+            $oldFileName = $product->getPhotoB();
+            $this->removeFile($oldFileName);
+
+            $oldFileName = $product->getPhotoC();
+            $this->removeFile($oldFileName);
+
+            $oldFileName = $product->getPhotoD();
+            $this->removeFile($oldFileName);
+
+            $oldFileName = $product->getPhotoE();
+            $this->removeFile($oldFileName);
+
+            $oldFileName = $product->getPhotoF();
+            $this->removeFile($oldFileName);
+          $entityManager->remove($product);
+           $entityManager->flush();
+
+
+
+       return $this->redirectToRoute('product_index');
+    }
+
+}
+
+    public function removeFile($oldFileName){
+
+        if ($oldFileName) {
+            $oldFilePath = $this->getParameter('Photo_directory') . '/' . $oldFileName;
+            if(file_exists($oldFilePath))
+                unlink($oldFilePath);
         }
-
-        return $this->redirectToRoute('product_index');
     }
 }
-//

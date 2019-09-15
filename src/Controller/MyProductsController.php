@@ -72,19 +72,101 @@ class MyProductsController extends AbstractController
     $product=$repo->findOneBy([
        'productId'=>$product->getProductId()
        ]);
-    $productId = $request->request->get('productId');
-    $productTitle = $request->request->get('productTitle');
-    $productDescription = $request->request->get('productDescription');
-    $photoA = $request -> files -> get('photoA');
+//    $productId = $request->request->get('productId');
+         $productTitle = $request->request->get('productTitle');
+        if(!empty($productTitle )){
+            $product-> setProductTitle($productTitle);
+        }
+
+         $productDescription = $request->request->get('productDescription');
+        if(!empty($productDescription )){
+            $product-> setProductDescription($productTitle);
+        }
+         $photoA = $request -> files -> get('photoA');
+        $oldFileName = $product->getPhotoA();
+        if(!empty($photoA)) {
+            $fileName = $this->generateUniqueFileName() . '.' . $photoA->guessExtension();
+            $photoA->move(
+                $this->getParameter('Photo_directory'),
+                $fileName
+            );
+            $product->setPhotoA($fileName);
+            $this->removePhoto($oldFileName);
+        }
+
     $photoB = $request -> files -> get('photoB');
+        $oldFileName = $product->getPhotoB();
+    if(!empty($photoB)) {
+        $fileName = $this->generateUniqueFileName() . '.' . $photoB->guessExtension();
+        $photoB->move(
+            $this->getParameter('Photo_directory'),
+            $fileName
+        );
+        $product->setPhotoB($fileName);
+        $this->removePhoto($oldFileName);
+    }
     $photoC = $request -> files -> get('photoC');
-    $photoD = $request -> files -> get('photoD');
-    $photoE = $request -> files -> get('photoE');
-    $photoF = $request -> files -> get('photoF');
-    $category = $request->request->get('category');
-    $pretPornire = $request->request->get('pretPornire');
-    $dataStop = $request->request->get('dataStop');
-    
+        $oldFileName = $product->getPhotoC();
+    if(!empty($photoC)) {
+        $fileName = $this->generateUniqueFileName() . '.' . $photoC->guessExtension();
+        $photoC->move(
+            $this->getParameter('Photo_directory'),
+            $fileName
+        );
+        $product->setPhotoC($fileName);
+        $this->removePhoto($oldFileName);
+    }
+        $photoD = $request -> files -> get('photoD');
+        $oldFileName = $product->getPhotoD();
+        if(!empty($photoD)) {
+            $fileName = $this->generateUniqueFileName() . '.' . $photoD->guessExtension();
+            $photoD->move(
+                $this->getParameter('Photo_directory'),
+                $fileName
+            );
+            $product->setPhotoD($fileName);
+            $this->removePhoto($oldFileName);
+        }
+
+        $photoE = $request -> files -> get('photoE');
+        $oldFileName = $product->getPhotoE();
+        if(!empty($photoE)) {
+            $fileName = $this->generateUniqueFileName() . '.' . $photoE->guessExtension();
+            $photoE->move(
+                $this->getParameter('Photo_directory'),
+                $fileName
+            );
+            $product->setPhotoE($fileName);
+            $this->removePhoto($oldFileName);
+        }
+        $photoF = $request -> files -> get('photoF');
+        $oldFileName = $product->getPhotoF();
+        if(!empty($photoF)) {
+            $fileName = $this->generateUniqueFileName() . '.' . $photoF->guessExtension();
+            $photoF->move(
+                $this->getParameter('Photo_directory'),
+                $fileName
+            );
+            $product->setPhotoF($fileName);
+            $this->removePhoto($oldFileName);
+        }
+        $category = $request->request->get('category');
+            if(!empty($category )){
+                $product-> setCategory($category);
+            }
+
+        $pretPornire = $request->request->get('pretPornire');
+            if(!empty($pretPornire )){
+                $product-> setPretPornire($pretPornire);
+            }
+
+        $dataStop = $request->request->get('dataStop');
+            if(!empty($dataStop )){
+    //
+                $dataStop1 =new \DateTime($dataStop);
+                $product-> setDataStop($dataStop1);
+            }
+
     
     
     
@@ -93,76 +175,76 @@ class MyProductsController extends AbstractController
     
     
 
-    if(!empty($productTitle )){
-            $product-> setProductTitle($productTitle);
-    }
-    if(!empty($productDescription )){
-            $product-> setProductDescription($productTitle);
-    }
-    if(!empty($photoA)){
-         $fileName = $this->generateUniqueFileName().'.'.$photoA->guessExtension();
-            $photoA->move(
-            $this->getParameter('Photo_directory'),
-                $fileName
-                    );         
-     $product->setPhotoA($fileName);
- }
-     if(!empty($photoB)){
-         $fileName = $this->generateUniqueFileName().'.'.$photoB->guessExtension();
-            $photoB->move(
-            $this->getParameter('Photo_directory'),
-                $fileName
-                    );         
-     $product->setPhotoB($fileName);
- }
- if(!empty($photoC)){
-         $fileName = $this->generateUniqueFileName().'.'.$photoC->guessExtension();
-            $photoC->move(
-            $this->getParameter('Photo_directory'),
-                $fileName
-                    );         
-     $product->setPhotoC($fileName);
- }
-     if(!empty($photoD)){
-         $fileName = $this->generateUniqueFileName().'.'.$photoD->guessExtension();
-            $photoD->move(
-            $this->getParameter('Photo_directory'),
-                $fileName
-                    );         
-     $product->setPhotoD($fileName);
-     }
-     if(!empty($photoE)){
-         $fileName = $this->generateUniqueFileName().'.'.$photoE->guessExtension();
-            $photoE->move(
-            $this->getParameter('Photo_directory'),
-                $fileName
-                    );  
-     
-     $product->setPhotoE($fileName);
-     }
-     if(!empty($photoF)){
-         $fileName = $this->generateUniqueFileName().'.'.$photoF->guessExtension();
-            $photoF->move(
-            $this->getParameter('Photo_directory'),
-                $fileName
-                    );         
-     $product->setPhotoF($fileName);
-     }
-     if(!empty($category )){
-            $product-> setCategory($category);
-    }
-     
-      if(!empty($pretPornire )){
-            $product-> setPretPornire($pretPornire);
-    }
-     if(!empty($dataStop )){
-//          $pretLicitat= $request->request->get('pretLicitat'); 
-//             $dataPret = date("Y-m-d H:i:s");
-//             $dataPretLicitat = new \DateTime($dataPret);
-             $dataStop1 =new \DateTime($dataStop);
-            $product-> setDataStop($dataStop1);
-    }
- 
+////    if(!empty($productTitle )){
+////            $product-> setProductTitle($productTitle);
+////    }
+////    if(!empty($productDescription )){
+////            $product-> setProductDescription($productTitle);
+////    }
+////    if(!empty($photoA)){
+////         $fileName = $this->generateUniqueFileName().'.'.$photoA->guessExtension();
+////            $photoA->move(
+////            $this->getParameter('Photo_directory'),
+////                $fileName
+////                    );
+//     $product->setPhotoA($fileName);
+// }
+//     if(!empty($photoB)){
+//         $fileName = $this->generateUniqueFileName().'.'.$photoB->guessExtension();
+//            $photoB->move(
+//            $this->getParameter('Photo_directory'),
+//                $fileName
+//                    );
+//     $product->setPhotoB($fileName);
+// }
+// if(!empty($photoC)){
+//         $fileName = $this->generateUniqueFileName().'.'.$photoC->guessExtension();
+//            $photoC->move(
+//            $this->getParameter('Photo_directory'),
+//                $fileName
+//                    );
+//     $product->setPhotoC($fileName);
+// }
+//     if(!empty($photoD)){
+//         $fileName = $this->generateUniqueFileName().'.'.$photoD->guessExtension();
+//            $photoD->move(
+//            $this->getParameter('Photo_directory'),
+//                $fileName
+//                    );
+//     $product->setPhotoD($fileName);
+//     }
+//     if(!empty($photoE)){
+//         $fileName = $this->generateUniqueFileName().'.'.$photoE->guessExtension();
+//            $photoE->move(
+//            $this->getParameter('Photo_directory'),
+//                $fileName
+//                    );
+//
+//     $product->setPhotoE($fileName);
+//     }
+//     if(!empty($photoF)){
+//         $fileName = $this->generateUniqueFileName().'.'.$photoF->guessExtension();
+//            $photoF->move(
+//            $this->getParameter('Photo_directory'),
+//                $fileName
+//                    );
+//     $product->setPhotoF($fileName);
+//     }
+//     if(!empty($category )){
+//            $product-> setCategory($category);
+//    }
+//
+//      if(!empty($pretPornire )){
+//            $product-> setPretPornire($pretPornire);
+//    }
+//     if(!empty($dataStop )){
+////          $pretLicitat= $request->request->get('pretLicitat');
+////             $dataPret = date("Y-m-d H:i:s");
+////             $dataPretLicitat = new \DateTime($dataPret);
+//             $dataStop1 =new \DateTime($dataStop);
+//            $product-> setDataStop($dataStop1);
+//    }
+//
 
           $em = $this->getDoctrine()->getManager();
           $em->persist($product);
@@ -177,6 +259,33 @@ class MyProductsController extends AbstractController
 //
           return $this->redirectToRoute('my_products');
         }
+//        public function uploadPhoto($photo)
+//        {
+//
+//                $fileName = $this->generateUniqueFileName() . '.' . $photo->guessExtension();
+//                $photo->move(
+//                    $this->getParameter('Photo_directory'),
+//                    $fileName
+//                );
+
+//            $product ->set'$photo'($fileName);
+
+
+
+//        }
+
+    public function removePhoto($oldFileName){
+
+        if ($oldFileName) {
+            $oldFilePath = $this->getParameter('Photo_directory') . '/' . $oldFileName;
+            if(file_exists($oldFilePath))
+                unlink($oldFilePath);
+        }
+    }
+
+
+
+
 //
 //    
  
@@ -191,17 +300,17 @@ class MyProductsController extends AbstractController
     }
 
 
-    /**
-     * @Route("/{productId}", name="product_delete", methods={"DELETE"}, requirements={"productId":"\d+"})
-     */
-    public function delete(Request $request, Product $product): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$product->getProductId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($product);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('product_index');
-    }
+//    /**
+//     * @Route("/{productId}", name="product_delete", methods={"DELETE"}, requirements={"productId":"\d+"})
+//     */
+//    public function delete(Request $request, Product $product): Response
+//    {
+//        if ($this->isCsrfTokenValid('delete'.$product->getProductId(), $request->request->get('_token'))) {
+//            $entityManager = $this->getDoctrine()->getManager();
+//            $entityManager->remove($product);
+//            $entityManager->flush();
+//        }
+//
+//        return $this->redirectToRoute('product_index');
+//    }
 }
