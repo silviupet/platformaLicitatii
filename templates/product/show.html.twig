@@ -24,6 +24,10 @@ img:hover {
         {% endblock %}
     
 {% block body %}
+    <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
 {{ include('product/_navigationMenu.html.twig') }}
        
     <div> Titlu: {{ product.productTitle }}</div>
@@ -96,7 +100,8 @@ img:hover {
           
                <div>Data Stop Licitiatie: {{ product.dataStop.format('Y-m-d') }}</div>
           
-               <div>Ultimul pret licitat: {{ product.ultimulPretLicitat }}</div>
+{#               <div>Ultimul pret licitat: {{ product.ultimulPretLicitat }}</div>#}
+                <p >Pret Licitat: <div id="container{{product.productId}}"></div> {#{{ product.ultimulPretLicitat }}#}</p>
          
        
  <form id ="ad_form" method ="POST" action="{{path('addLicitatie', {'productId': product.productId})}}">
@@ -124,4 +129,14 @@ img:hover {
     {{ include('product/_delete_form.html.twig') }}
     {%endif%}
     {{ include('product/_footer.html.twig') }}
+
+    <script>
+        setInterval(function(){
+            $.getJSON("/api/{{product.productId}}" , function(data){
+                    $('#container{{product.productId}}').text(data.ultimulPretLicitat)
+                }
+            )
+        }, 5000)
+
+    </script>
 {% endblock %}
