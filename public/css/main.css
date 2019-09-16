@@ -50,6 +50,7 @@ body {
 
 .style-nav ul {
 	list-style-type: none;
+
 }
 
 .style-nav ul li a {
@@ -116,9 +117,10 @@ body {
 	
 	.style-nav {
 		float: right;
+
                
 	}
-	
+
 /*	.col-lg-one-fourth {
 		width: 25%;
 	}*/

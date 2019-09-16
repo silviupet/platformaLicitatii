@@ -51,7 +51,15 @@ class ProductController extends AbstractController
      */
     public function new(Request $request): Response
     {
+        if(!  $this->isGranted("IS_AUTHENTICATED_FULLY")) {
+
+            $this->addFlash(
+                'warning',
+                'Trebuie sa fi logat pentru a adauga un produs'
+            );
+        }
         $this->denyAccessUnlessGranted(['ROLE_USER']);
+
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);

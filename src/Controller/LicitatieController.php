@@ -28,7 +28,13 @@ class LicitatieController extends AbstractController
 */
     public function addLicitatie(Request $request)
     {
-    
+        if(!$this->isGranted('IS_AUTENTICATED_FULLY')){
+            $this->addFlash(
+                'warning',
+                'Trebuie sa fi logat pentru licita'
+            );
+        }
+
         $this->denyAccessUnlessGranted(['ROLE_USER']);
         if(!$request->request->has('pretLicitat') ){
            return $this->redirectToRoute('product_index');
@@ -62,7 +68,13 @@ class LicitatieController extends AbstractController
             $entityManager->persist($licitatie);
             $entityManager->flush();
              }     
-             else Return new Response('Pretul Licitat trebuie sa fie mai mare decat Ultimul Pret Licitat');
+             else
+                 $this->addFlash(
+                     'warning',
+                     'Pretul Licitat trebuie sa fie mai mare decat Ultimul Pret Licitat. Licitatia nu a fost inregistrata'
+                 );
+        return $this->redirectToRoute('addLicitatie');
+//                 Return new Response('Pretul Licitat trebuie sa fie mai mare decat Ultimul Pret Licitat');
 //            iau ultim pret licitat din Product, gasesc Id produsului 
 //            comparandu-l cu idProdusului din Licitatii (ultima Licitatie care s-a facut mai sus)
 //            apoi la produsul licitat ii updatez ultimul pret licitat 
@@ -77,8 +89,10 @@ class LicitatieController extends AbstractController
          $entityManager->persist($produsLicitat);
          $entityManager->flush();
                  
-//        $productId = $request->getSession()->get('productId');
-//         $sproduct =  $repo->findBy(['productId' =>$productId]);      
+        $this->addFlash(
+            'succes',
+            'Licitatia s-a inregistrat cu succes!'
+        );
              return $this->redirectToRoute('product_index');
         
 //         return new Response ('form is submitted');

@@ -18,6 +18,14 @@ class FavoritesController extends AbstractController
      */
     public function index()
     {
+        if(!$this->isGranted('IS_AUTENTICATED_FULLY')){
+            $this->addFlash(
+                'warning',
+                'Trebuie sa fi logat pentru a vedea produsele favorite'
+            );
+        }
+
+
         $this->denyAccessUnlessGranted(['ROLE_USER']);
         $userId= $this->getUser()->getUserId();
 //        $repo = $this->getDoctrine()->getRepository(Product::Class);
@@ -48,6 +56,13 @@ class FavoritesController extends AbstractController
      */
     public function addFavorites(Request $request)
     {
+        if(!$this->isGranted('IS_AUTENTICATED_FULLY')){
+            $this->addFlash(
+                'warning',
+                'Trebuie sa fi logat pentru a adauga produsele favorite'
+            );
+        }
+
         $this->denyAccessUnlessGranted(['ROLE_USER']);
         $productId = $request->query->get('productId');
         $userId = $this->getUser()->GetUserId();
@@ -74,6 +89,13 @@ class FavoritesController extends AbstractController
      */
     public function deleteFromFavorites($productId)
     {
+        if(!$this->isGranted('IS_AUTENTICATED_FULLY')){
+            $this->addFlash(
+                'warning',
+                'Trebuie sa fi logat pentru a sterge produsele favorite'
+            );
+        }
+
         $this->denyAccessUnlessGranted(['ROLE_USER']);
         $userId= $this->getUser()->getUserId();
         $repo =$this->getDoctrine()->getRepository(Produsefavorite::class);

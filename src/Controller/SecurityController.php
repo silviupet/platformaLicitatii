@@ -17,6 +17,7 @@ class SecurityController extends AbstractController
     public function login(AuthenticationUtils $authenticationUtils): Response
     {
          if($this->isGranted("IS_AUTHENTICATED_FULLY")){
+             $this->addFlash('warning', 'Esti deja logat');
             return $this->redirectToRoute('product_index');
              
         }
@@ -24,13 +25,16 @@ class SecurityController extends AbstractController
 //        
 //        
          if ($this->getUser()) {
+
           $this->redirectToRoute('product_index');
+
          }
 
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user
         $lastUsername = $authenticationUtils->getLastUsername();
+
 
         return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
 
@@ -42,12 +46,14 @@ class SecurityController extends AbstractController
      */
     public function logout(Request $request)
     {
-//        $key = '_security.main.target_path';
-//         $url = $request->getSession()->get($key);
-//         dump($url);
+
+
         $request->getSession()->invalidate();
 //        return new RedirectResponse($this->urlGenerator->generate('product_index'));
-        return new Response('logout');
+
+//        $this->redirectToRoute('product_index');
+       return new Response('logout');
+
 //       return $this->redirectToRoute('product_index');
 //        throw new \Exception('This method can be blank - it will be intercepted by the logout key on your firewall');
     }

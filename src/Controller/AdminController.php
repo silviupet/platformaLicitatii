@@ -26,6 +26,7 @@ class AdminController extends AbstractController
             return $this->redirectToRoute('product_index');
 
         }
+
         $this->denyAccessUnlessGranted(['ROLE_ADMIN']);
 
 

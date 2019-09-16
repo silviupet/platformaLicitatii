@@ -28,12 +28,21 @@ class MyProductsController extends AbstractController
      */
     public function index(ProductRepository $productRepository): Response
     {
+        if(!  $this->isGranted("IS_AUTHENTICATED_FULLY")) {
+
+            $this->addFlash(
+                'warning',
+                'Trebuie sa fi logat pentru a vedea produsele tale'
+            );
+        }
+        $this->denyAccessUnlessGranted(['ROLE_USER']);
+
          $userEmail = $this->getUser();
        
        if ($userEmail ==null){
         return $this->render('my_products/index.html.twig', [
             'products' => $productRepository->findBy([
-                'userId' => $this->getUser()->getUserId()
+//                'userId' => $this->getUser()->getUserId()
                      ]),
 //          'user' => $userEmail->getEmail(),
             'message' =>''
@@ -66,6 +75,12 @@ class MyProductsController extends AbstractController
  */
     public function edit(Request $request, Product $product): Response
     {
+        if(!$this->isGranted('IS_AUTHENTICATED_FULLY')){
+            $this ->addFlash(
+                'warning',
+                'Trebuie sa fi autentificat sa modifici produse'
+            );
+        }
      $this->denyAccessUnlessGranted(['ROLE_USER']);   
      
     $repo =$this->getDoctrine()->getRepository(Product::class);

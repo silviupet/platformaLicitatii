@@ -20,7 +20,12 @@ class RegistrationController extends AbstractController
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, LoginFormAuthenticator $authenticator): Response
     {
         if($this->isGranted("IS_AUTHENTICATED_FULLY")){
-            return $this->redirectToRoute('product_index');
+
+                $this->addFlash('warning', 'Esti deja logat. Pentru inregistrare intai va trebui sa fi delogat');
+                return $this->redirectToRoute('product_index');
+
+
+
         }
 //        pentru a preveni ca un utilizator logat sa aiba acces la registration and login 
         $user = new User();
@@ -40,6 +45,7 @@ class RegistrationController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($user);
             $entityManager->flush();
+            $this->addFlash('success', 'v-ati inregistrat cu success');
 
             // do anything else you need here, like send an email
 
@@ -49,7 +55,9 @@ class RegistrationController extends AbstractController
                 $authenticator,
                 'main' // firewall name in security.yaml
             );
+
         }
+
 
         return $this->render('registration/register.html.twig', [
             'registrationForm' => $form->createView(),
