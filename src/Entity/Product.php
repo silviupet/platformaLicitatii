@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Mapping\ClassMetadata;
 use Symfony\Component\Validator\Constraints\DateTime;
@@ -286,27 +287,33 @@ class Product implements \JsonSerializable
         $metadata->addPropertyConstraint('photoA', new Assert\File([
             'maxSize' => '10240k',
             'mimeTypesMessage' => 'Please upload a valid photo',
+            'mimeTypes'=> ["image/jpeg" , "image/png" , "image/tiff" , "image/svg+xml"]
            
         ]));
         $metadata->addPropertyConstraint('photoB', new Assert\File([
             'maxSize' => '10240k',
             'mimeTypesMessage' => 'Please upload a valid Photo',
+            'mimeTypes'=> ["image/jpeg" , "image/png" , "image/tiff" , "image/svg+xml"]
         ]));
         $metadata->addPropertyConstraint('photoC', new Assert\File([
             'maxSize' => '10240k',
             'mimeTypesMessage' => 'Please upload a valid photo',
+            'mimeTypes'=> ["image/jpeg" , "image/png" , "image/tiff" , "image/svg+xml"]
         ]));
         $metadata->addPropertyConstraint('photoD', new Assert\File([
             'maxSize' => '10240k',
             'mimeTypesMessage' => 'Please upload a valid photo',
+            'mimeTypes'=> ["image/jpeg" , "image/png" , "image/tiff" , "image/svg+xml"]
         ]));
         $metadata->addPropertyConstraint('photoE', new Assert\File([
             'maxSize' => '10240k',
             'mimeTypesMessage' => 'Please upload a valid pgoto',
+            'mimeTypes'=> ["image/jpeg" , "image/png" , "image/tiff" , "image/svg+xml"]
         ]));
         $metadata->addPropertyConstraint('photoF', new Assert\File([
             'maxSize' => '10240k',
             'mimeTypesMessage' => 'Please upload a valid photo',
+            'mimeTypes'=> ["image/jpeg" , "image/png" , "image/tiff" , "image/svg+xml"]
         ]));
         
         $metadata->addPropertyConstraint('category', new Assert\Choice([
@@ -321,5 +328,4 @@ class Product implements \JsonSerializable
        
 }
 
-   
 }

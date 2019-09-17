@@ -164,7 +164,7 @@ class ProductController extends AbstractController
       
             
             
-
+            $this->addFlash('success', 'produs adaugat cu success');
             return $this->redirectToRoute('my_products');
         }
 
@@ -245,7 +245,7 @@ class ProductController extends AbstractController
            $entityManager->flush();
 
 
-
+        $this->addFlash('success', 'produs sters');
        return $this->redirectToRoute('product_index');
     }
 

@@ -19,10 +19,7 @@ class FavoritesController extends AbstractController
     public function index()
     {
         if(!$this->isGranted('IS_AUTENTICATED_FULLY')){
-            $this->addFlash(
-                'warning',
-                'Trebuie sa fi logat pentru a vedea produsele favorite'
-            );
+
         }
 
 
@@ -54,14 +51,8 @@ class FavoritesController extends AbstractController
      * @Route("addfavorites", name="addFavorites", methods={"GET", "POST"}, requirements={"productId":"\d+"})
      * @param Request $request
      */
-    public function addFavorites(Request $request)
+    public function addFavorites(Request $request):Response
     {
-        if(!$this->isGranted('IS_AUTENTICATED_FULLY')){
-            $this->addFlash(
-                'warning',
-                'Trebuie sa fi logat pentru a adauga produsele favorite'
-            );
-        }
 
         $this->denyAccessUnlessGranted(['ROLE_USER']);
         $productId = $request->query->get('productId');
@@ -77,9 +68,11 @@ class FavoritesController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($favorites);
             $entityManager->flush();
-            return new Response('adaugat la favorite');
+            $this->addFlash('success', "produs adaugat la favorite ");
+          return $this->redirectToRoute('favorites');
         }
-        return new Response('produsul este deja in favorite');
+        $this->addFlash('warning', "produs este deja in favorite ");
+        return $this->redirectToRoute('favorites');
 
     }
 
@@ -89,12 +82,7 @@ class FavoritesController extends AbstractController
      */
     public function deleteFromFavorites($productId)
     {
-        if(!$this->isGranted('IS_AUTENTICATED_FULLY')){
-            $this->addFlash(
-                'warning',
-                'Trebuie sa fi logat pentru a sterge produsele favorite'
-            );
-        }
+
 
         $this->denyAccessUnlessGranted(['ROLE_USER']);
         $userId= $this->getUser()->getUserId();
@@ -108,7 +96,7 @@ class FavoritesController extends AbstractController
           $entityManager->remove($product);
           $entityManager->flush();
       }
-
+        $this->addFlash('success', 'sters din favorite');
         return $this->redirectToRoute('favorites');
     }
 
