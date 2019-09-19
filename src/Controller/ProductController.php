@@ -168,11 +168,29 @@ class ProductController extends AbstractController
             return $this->redirectToRoute('my_products');
         }
 
-        return $this->render('product/new.html.twig', [
-            'product' => $product,
-            'form' => $form->createView(),
+        $userEmail = $this->getUser();
+
+        if ($userEmail ==null){
+            return $this->render('product/new.html.twig', [
+//                'product' => $products,
+                'form' => $form->createView(),
+//          'user' => $userEmail->getEmail(),
+                'message' =>''
+            ]);
+        } else
+            return $this->render('product/new.html.twig', [
+//                'product' => $products,
+                'user' => $userEmail->getEmail(),
+                'form' => $form->createView(),
+                'message' =>''
             ]);
     }
+
+//return $this->render('product/new.html.twig', [
+//            'product' => $product,
+//            'form' => $form->createView(),
+//            ]);
+//    }
     /**
      * @return string
      */
