@@ -22,12 +22,13 @@ class AdminController extends AbstractController
      */
     public function admin(ProductRepository $productRepository): Response
     {
-        if($this->isGranted("IS_AUTHENTICATED_FULLY")){
+        if($this->isGranted("IS_AUTHENTICATED_FULLY")&& !$this->isGranted("ROLE_ADMIN")){
+            $this->addFlash('warning','Esti deja logat. Trebuie sa te deloghezi pt a accesa meniul de administrator');
             return $this->redirectToRoute('product_index');
-
         }
 
-        $this->denyAccessUnlessGranted(['ROLE_ADMIN']);
+        $this->denyAccessUnlessGranted(["ROLE_ADMIN"]);
+        
 
 
 
