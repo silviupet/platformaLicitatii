@@ -96,12 +96,12 @@ img:hover {
             
                 <div> Categorie: {{ product.category }}</div>
            
-                <div>Pret Pornire: {{ product.pretPornire }}</div>
+                <div>Pret Pornire: {{ product.pretPornire }} RON </div>
           
                <div>Data Stop Licitiatie: {{ product.dataStop.format('Y-m-d') }}</div>
           
 {#               <div>Ultimul pret licitat: {{ product.ultimulPretLicitat }}</div>#}
-                <p >Pret Licitat: <div id="container{{product.productId}}"></div> {#{{ product.ultimulPretLicitat }}#}</p>
+                <p >Ultimul Pret Licitat: <div id="container{{product.productId}}"></div> {#{{ product.ultimulPretLicitat }}#}</p>
          
        
  <form id ="ad_form" method ="POST" action="{{path('addLicitatie', {'productId': product.productId})}}">
@@ -133,7 +133,7 @@ img:hover {
     <script>
         setInterval(function(){
             $.getJSON("/api/{{product.productId}}" , function(data){
-                    $('#container{{product.productId}}').text(data.ultimulPretLicitat)
+                    $('#container{{product.productId}}').text(data.ultimulPretLicitat+' RON')
                 }
             )
         }, 5000)

@@ -26,7 +26,6 @@ class ProductController extends AbstractController
      */
     public function index(Request $request): Response
     {
-//     $product = $this->getDoctrine() ->getRepository(Product::Class);
        $products = $this->getDoctrine()->getManager()
         ->createQuery('SELECT p FROM App\Entity\Product p WHERE p.dataStop >= CURRENT_DATE()')
         ->getResult();
@@ -41,7 +40,7 @@ class ProductController extends AbstractController
        } else 
         return $this->render('product/index.html.twig', [
             'products' => $products,
-        'user' => $userEmail->getEmail(),
+            'user' => $userEmail->getEmail(),
             'message' =>''
      ]);              
     }  

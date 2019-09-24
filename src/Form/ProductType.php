@@ -66,7 +66,7 @@ class ProductType extends AbstractType{
                         ])
             ->add('category', ChoiceType::class, [
                     'choices'  => [
-                    'autovehicole' =>  'autovehicole',
+                    'autovehicule' =>  'autovehicule',
                     'mobilier' => 'mobilier' ,
                     'electronice' => 'electronice',
                     'altele'=> 'altele'

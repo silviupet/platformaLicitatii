@@ -36,7 +36,11 @@
     </style>
         {% endblock %}
 {% block body %}
-   
+<script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+
 
   {{ include('product/_navigationMenu.html.twig') }} 
    <h1>Produsele mele </h1>
@@ -45,46 +49,34 @@
             
             <div class="card" style="width: 200px; height: 500px; position:relative">
              <h5 class="card-title"> {{ product.productTitle }}</h5>
-                <img style="width: 200px; height: 250px" src="/uploads/{{ product.photoA }}" class="card-img-top" alt="...">
+                <img style="width: 200px; height: 200px" src="/uploads/{{ product.photoA }}" class="card-img-top" alt="...">
                     <div class="card-body">
     
-                     <p class="card-text">{{ product.productDescription }}</p>
+{#                     <p class="card-text">{{ product.productDescription }}</p>#}
                         <hr>
-                     <p class="card-text">Pret Licitat: {{ product.ultimulPretLicitat }}</p>
-            
+{#                     <p class="card-text">Ultimul Pret Licitat: {{ product.ultimulPretLicitat }}</p>#}
+                        <p class="card-text">Ultimul Pret Licitat: <div id="container{{product.productId}}"></div> {#{{ product.ultimulPretLicitat }}#}</p>
                      <a href="{{ path('product_show', {'productId': product.productId}) }}">Detalii</a>
                    {#  {% if is_granted('ROLE_ADMIN') %}   {#{% endif %}#}
                     <a href="{{ path('product_edit', {'productId': product.productId}) }}">Modifica</a>
                    {# {% if is_granted('ROLE_ADMIN') %}   #}
                    {{ include('product/_delete_form.html.twig') }}
                      {#{%endif%}#}
-                  {#  {% endif%}#}   
-            
+                  {#  {% endif%}#}
+                        <script>
+                            setInterval(function(){
+                                $.getJSON("/api/{{product.productId}}" , function(data){
+                                        $('#container{{product.productId}}').text(data.ultimulPretLicitat+' RON')
+                                    }
+                                )
+                            }, 5000)
+                            </script>
             
                     </div>  
             </div>
-            
-            
-            {#<div>
-          
-            <div id="productTitle"> Produs: {{ product.productTitle }} </div>
-            
-                 <img style="max-width: 200px" src="/uploads/{{ product.photoA }}"> 
-         
-                             <div id="productDescription"> Descriere:  {{ product.productDescription }}</div>
-                                <div id="ultimulPretLicitat">  Ultimul Pret Licitat: {{ product.ultimulPretLicitat }}</div>
-                                
-                        
-                           
-         
-                    <a href="{{ path('product_show', {'productId': product.productId}) }}">Detalii</a>
-                   {#  {% if is_granted('ROLE_ADMIN') %}   {#{% endif %}#}
-                    {#<a href="{{ path('product_edit', {'productId': product.productId}) }}">Modifica</a>#}
-                   {# {% if is_granted('ROLE_ADMIN') %}   #}
-                   {# {{ include('product/_delete_form.html.twig') }}#}
-                     {#{%endif%}#}
-                  {#  {% endif%}#}
-           {# </div>#}
+
+
+
         {% else %}
             
             <div colspan="12">no records found</div>
@@ -94,4 +86,5 @@
   </div>
 {{ include('product/_footer.html.twig') }}
   {#  <a href="{{ path('product_new') }}">Create new</a>#}
+
 {% endblock %}

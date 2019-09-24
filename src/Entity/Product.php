@@ -317,7 +317,7 @@ class Product implements \JsonSerializable
         ]));
         
         $metadata->addPropertyConstraint('category', new Assert\Choice([
-            'choices' => ['autovehicole', 'mobilier' , 'electronice' , 'altele'],
+            'choices' => ['autovehicule', 'mobilier' , 'electronice' , 'altele'],
             'message' => 'Choose a valid option.',
     ]));
         

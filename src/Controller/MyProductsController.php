@@ -79,11 +79,11 @@ class MyProductsController extends AbstractController
                 'Trebuie sa fi autentificat sa modifici produse'
             );
         }
-        $this->denyAccessUnlessGranted(['ROLE_USER']);
+
 
         $repo = $this->getDoctrine()->getRepository(Product::class);
         $product = $repo->findOneBy([
-            'productId' => $product->getProductId()
+           'productId' => $product->getProductId()
         ]);
 //    $productId = $request->request->get('productId');
         $productTitle = $request->request->get('productTitle');
@@ -93,7 +93,7 @@ class MyProductsController extends AbstractController
 
         $productDescription = $request->request->get('productDescription');
         if (!empty($productDescription)) {
-            $product->setProductDescription($productTitle);
+            $product->setProductDescription($productDescription);
         }
         $photoA = $request->files->get('photoA');
 
@@ -213,12 +213,16 @@ class MyProductsController extends AbstractController
         $em->persist($product);
         $em->flush();
 //        $this->addFlash('success', 'produs schimbat');
+
         return $this->render('product/edit.html.twig',
             [
                 'product' => $product,
                 'user' => $this->getUser()->getEmail()
 
             ]);
+
+
+
 
 
     }

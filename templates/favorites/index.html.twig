@@ -69,12 +69,12 @@
             <div class="card" style="width: 200px; height: 500px; position:relative">
 
                 <h5 class="card-title"> {{ product.productTitle }}</h5>
-                <img style="width: 200px; height: 250px" src="/uploads/{{ product.photoA }}" class="card-img-top" alt="...">
+                <img style="width: 200px; height: 200px" src="/uploads/{{ product.photoA }}" class="card-img-top" alt="...">
                 <div class="card-body">
 
                     {#<p class="card-text">{{ product.productDescription }}</p>#}
                     <hr>
-                    <p class="card-text">Pret Licitat: <div id="container{{product.productId}}"></div> {#{{ product.ultimulPretLicitat }}#}</p>
+                    <p class="card-text">Ultimul Pret Licitat: <div id="container{{product.productId}}"></div> {#{{ product.ultimulPretLicitat }}#}</p>
                     {#<div id="container1"> ultim pret Licitat</div>#}
 
                     <a style="position: absolute; left: 1px; bottom: 100px;" href="{{ path('product_show', {'productId': product.productId}) }}" class="btn btn-secondary btn-sm">Detalii / Liciteaza</a>
@@ -96,7 +96,7 @@
             <script>
                 setInterval(function(){
                     $.getJSON("/api/{{product.productId}}" , function(data){
-                            $('#container{{product.productId}}').text(data.ultimulPretLicitat)
+                            $('#container{{product.productId}}').text(data.ultimulPretLicitat+" RON")
                         }
                     )
                 }, 5000)

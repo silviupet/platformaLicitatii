@@ -32,7 +32,7 @@ class LicitatieController extends AbstractController
 
             $this->addFlash(
                 'warning',
-                'Trebuie sa fi logat a licita'
+                'Trebuie sa fii logat pentru a licita'
             );
         }
         $this->denyAccessUnlessGranted(['ROLE_USER']);
