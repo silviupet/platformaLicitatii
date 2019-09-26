@@ -66,9 +66,6 @@ class ProductController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
              $file = $this->getUser()->getUserId();
-             
-//         $file = 2;     
-//          $file = $request->getSession()->get('userId');
             $product->setUserId($file);
             $file = $product->getProductTitle();
             $product->setProductTitle($file);
@@ -80,7 +77,7 @@ class ProductController extends AbstractController
             if($file){
             $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
 
-            // moves the file to the directory where brochures are stored
+            // moves the file to the directory where file are stored
             $file->move(
                 $this->getParameter('Photo_directory'),
                 $fileName
@@ -92,7 +89,7 @@ class ProductController extends AbstractController
              if($file){
             $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
 
-            // moves the file to the directory where brochures are stored
+
             $file->move(
                 $this->getParameter('Photo_directory'),
                 $fileName
@@ -103,7 +100,7 @@ class ProductController extends AbstractController
               if($file){
             $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
 
-            // moves the file to the directory where brochures are stored
+
             $file->move(
                 $this->getParameter('Photo_directory'),
                 $fileName
@@ -114,7 +111,7 @@ class ProductController extends AbstractController
               if($file){
             $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
 
-            // moves the file to the directory where brochures are stored
+
             $file->move(
                 $this->getParameter('Photo_directory'),
                 $fileName
@@ -125,7 +122,7 @@ class ProductController extends AbstractController
               if($file){
             $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
 
-            // moves the file to the directory where brochures are stored
+
             $file->move(
                 $this->getParameter('Photo_directory'),
                 $fileName
@@ -136,7 +133,7 @@ class ProductController extends AbstractController
                if($file){
             $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
 
-            // moves the file to the directory where brochures are stored
+
             $file->move(
                 $this->getParameter('Photo_directory'),
                 $fileName
@@ -185,11 +182,7 @@ class ProductController extends AbstractController
             ]);
     }
 
-//return $this->render('product/new.html.twig', [
-//            'product' => $product,
-//            'form' => $form->createView(),
-//            ]);
-//    }
+
     /**
      * @return string
      */
@@ -206,14 +199,7 @@ class ProductController extends AbstractController
      */
     public function show(Product $product): Response
     {
-//         $repo = $this->getDoctrine()->getRepository(Licitatie::class);
-//         $licitatie=$repo->findOneBy([
-//             'productId'=>$product->getProductId() 
-//         ], [
-//             'dataPretLicitat'=>'DESC'
-//         ]);
         $userEmail = $this->getUser();
-     
        if ($userEmail ==null){
         return $this->render('product/show.html.twig', [
             'product' => $product,
@@ -223,7 +209,7 @@ class ProductController extends AbstractController
        } else 
         return $this->render('product/show.html.twig', [
             'product' => $product,
-        'user' => $userEmail->getEmail(),
+            'user' => $userEmail->getEmail(),
             'message' =>''
      ]);               
         
@@ -258,8 +244,8 @@ class ProductController extends AbstractController
 
             $oldFileName = $product->getPhotoF();
             $this->removeFile($oldFileName);
-          $entityManager->remove($product);
-           $entityManager->flush();
+            $entityManager->remove($product);
+            $entityManager->flush();
 
 
         $this->addFlash('success', 'produs sters');

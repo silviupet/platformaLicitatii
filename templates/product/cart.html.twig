@@ -58,18 +58,12 @@
      </div>
 {#     </div>  #}
     {% endfor %}
-   {# <form action="{{path('product_edit',{'productId':product.productId})}}" method="POST" enctype="multipart/form-data">
-       <input type="hidden" name="productId" value="{{product.productId}}"></input>#}
+
         <a style="position: absolute; left: 50px; bottom: 2px;" href="{{ path('removecart',{'productId':productId}) }}" class="btn btn-secondary btn-sm">sterge din favorite</a>  
   </div>   
 {% endfor %}
    </div>
 
-    {#{% for carts in cart %}
-   
-    <div>{{cart[product.productId]["Titlu"]}}</div>#}
-
-  {#{{  dump(cart[product.productId])}}#}
-{#{%endfor%}#}
+  
 
 {%endblock%}

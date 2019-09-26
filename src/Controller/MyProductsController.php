@@ -43,7 +43,7 @@ class MyProductsController extends AbstractController
         if ($userEmail == null) {
             return $this->render('my_products/index.html.twig', [
                 'products' => $productRepository->findBy([
-//                'userId' => $this->getUser()->getUserId()
+                'userId' => $this->getUser()->getUserId()
                 ]),
 //          'user' => $userEmail->getEmail(),
                 'message' => ''
@@ -59,11 +59,6 @@ class MyProductsController extends AbstractController
 
             ]);
 
-//        return $this->render('my_products/index.html.twig', [
-//            'products' => $productRepository->findBy([
-//                'userId' => $this->getUser()->getUserId()
-//            ]),
-//        ]);
     }
 
 
@@ -85,7 +80,6 @@ class MyProductsController extends AbstractController
         $product = $repo->findOneBy([
            'productId' => $product->getProductId()
         ]);
-//    $productId = $request->request->get('productId');
         $productTitle = $request->request->get('productTitle');
         if (!empty($productTitle)) {
             $product->setProductTitle($productTitle);
@@ -96,21 +90,9 @@ class MyProductsController extends AbstractController
             $product->setProductDescription($productDescription);
         }
         $photoA = $request->files->get('photoA');
-
-
-//        $allowed_image_extension =[
-//            "png",
-//            "jpg",
-//            "jpeg",
-//            "tiff"
-//
-//        ];
-//
-//        if($photoA->getMimeType()== in_array($photoA->guessExtension(), $allowed_image_extension))
-
-
         $oldFileName = $product->getPhotoA();
         if (!empty($photoA)) {
+//            ValidatePhoto este o functie definita mai jos care valideaza daca e fote si dimensiunea
             if ($this->validatePhoto($photoA)) {
                 $fileName = $this->generateUniqueFileName() . '.' . $photoA->guessExtension();
                 $photoA->move(
@@ -118,11 +100,11 @@ class MyProductsController extends AbstractController
                     $fileName
                 );
                 $product->setPhotoA($fileName);
+//                removePhoto este o functie definita mai jos de stergere din Public/uploads
                 $this->removePhoto($oldFileName);
             }
         }
 
-//        else return new Response('error');
         $photoB = $request->files->get('photoB');
         $oldFileName = $product->getPhotoB();
         if (!empty($photoB)) {
@@ -179,7 +161,7 @@ class MyProductsController extends AbstractController
         $photoF = $request->files->get('photoF');
         $oldFileName = $product->getPhotoF();
         if (!empty($photoF)) {
-            if ($this->validatePhoto($photoA)) {
+            if ($this->validatePhoto($photoF)) {
                 $fileName = $this->generateUniqueFileName() . '.' . $photoF->guessExtension();
                 $photoF->move(
                     $this->getParameter('Photo_directory'),
@@ -226,19 +208,7 @@ class MyProductsController extends AbstractController
 
 
     }
-//        public function uploadPhoto($photo)
-//        {
-//
-//                $fileName = $this->generateUniqueFileName() . '.' . $photo->guessExtension();
-//                $photo->move(
-//                    $this->getParameter('Photo_directory'),
-//                    $fileName
-//                );
 
-//            $product ->set'$photo'($fileName);
-
-
-//        }
 
     public function removePhoto($oldFileName)
     {
@@ -251,11 +221,6 @@ class MyProductsController extends AbstractController
     }
 
 
-
-
-//
-//    
-
     /**
      * @return string
      */
@@ -267,19 +232,6 @@ class MyProductsController extends AbstractController
     }
 
 
-//    /**
-//     * @Route("/{productId}", name="product_delete", methods={"DELETE"}, requirements={"productId":"\d+"})
-//     */
-//    public function delete(Request $request, Product $product): Response
-//    {
-//        if ($this->isCsrfTokenValid('delete'.$product->getProductId(), $request->request->get('_token'))) {
-//            $entityManager = $this->getDoctrine()->getManager();
-//            $entityManager->remove($product);
-//            $entityManager->flush();
-//        }
-//
-//        return $this->redirectToRoute('product_index');
-//    }
     public function validatePhoto($photo)
     {
         $allowed_image_extension = [
@@ -296,7 +248,7 @@ class MyProductsController extends AbstractController
             return false;
 
             $this->redirectToRoute('product_edit');
-        } elseif (!$fileinfo > 2000000) {
+        } elseif ($fileinfo > 2000000) {
             $this->addFlash('warning', 'Dimensiunea foto prea mare. Produsul nu a fost modificat');
             return false;
             $this->redirectToRoute('product_edit');
@@ -314,7 +266,7 @@ class MyProductsController extends AbstractController
     public function validatePretPornire($pretPornire)
     {
         if (!is_numeric($pretPornire)) {
-            $this->addFlash('warning', 'suma licitata trebuie sa sie un numar intreg. Produsul nu a fost modificat');
+            $this->addFlash('warning', 'suma licitata trebuie sa fie un numar intreg. Produsul nu a fost modificat');
             return false;
             $this->redirectToRoute('product_edit');
         } else {

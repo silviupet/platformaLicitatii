@@ -54,18 +54,7 @@
     <div id ="container">
         {% for product in products %}
 
-            {# <div>
 
-                  <div id="productTitle"> Produs: {{ product.productTitle }} </div>
-
-                       <img style="max-width: 200px" src="/uploads/{{ product.photoA }}">
-
-                                   <div id="productDescription"> Descriere:  {{ product.productDescription }}</div>
-                                      <div id="ultimulPretLicitat">  Ultimul Pret Licitat: {{ product.ultimulPretLicitat }}</div>
-
-               <a href="{{ path('product_show', {'productId': product.productId}) }}">Arata detalii / Liciteaza</a>
-
-             </div>  #}
             <div class="card" style="width: 200px; height: 500px; position:relative">
 
                 <h5 class="card-title"> {{ product.productTitle }}</h5>

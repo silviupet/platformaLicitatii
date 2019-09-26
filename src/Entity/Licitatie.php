@@ -54,12 +54,7 @@ class Licitatie
         return $this->licitatieId;
     }
 
-//    public function setLicitatieId(int $licitatieId): self
-//    {
-//        $this->licitatieId = $licitatieId;
-//
-//        return $this;
-//    }
+
 
     public function getProductId(): ?int
     {

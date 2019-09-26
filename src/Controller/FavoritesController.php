@@ -18,7 +18,7 @@ class FavoritesController extends AbstractController
      */
     public function index()
     {
-        if(!  $this->isGranted("IS_AUTHENTICATED_FULLY")) {
+        if(!$this->isGranted("IS_AUTHENTICATED_FULLY")) {
 
             $this->addFlash(
                 'warning',
@@ -30,20 +30,16 @@ class FavoritesController extends AbstractController
 
 
         $userId= $this->getUser()->getUserId();
-//        $repo = $this->getDoctrine()->getRepository(Product::Class);
-//        $products = $repo->findBy([
-//            'userId' => $userId
-//        ]);
-//
+
       $products= $this->getDoctrine()->getManager()
-//
+
 
             ->createQuery('select p. productTitle, p.productDescription, p.photoA, p.category, p.pretPornire, p.dataStop, p.ultimulPretLicitat, pf.productId, pf.userId from App\Entity\Product p
                   join App\Entity\Produsefavorite pf
                        where p.productId = pf.productId
                   and pf.userId = :userId')->setParameter('userId',$userId)
             ->getResult();
-//         dump($products);
+
         $userEmail = $this->getUser()->getEmail();
         return $this->render('favorites/index.html.twig', [
             'products' => $products,
@@ -103,7 +99,7 @@ class FavoritesController extends AbstractController
             'productId'=>$productId,
             'userId'=>$userId
         ]);
-      if(empty(!$product)) {
+      if(!empty($product)) {
           $entityManager = $this->getDoctrine()->getManager();
           $entityManager->remove($product);
           $entityManager->flush();

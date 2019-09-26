@@ -33,23 +33,22 @@ class AdminController extends AbstractController
 
 
          $userEmail = $this->getUser();
-     
+//     daca userul este logat va afisa un mesaj:bine ai venit $user, daca nu va afisa doar produsele
        if ($userEmail ==null){
         return $this->render('product/index.html.twig', [
             'products' => $productRepository->findAll(),
 //          'user' => $userEmail->getEmail(),
-            'message' =>''
+            'message'=>''
+
        ]);         
        } else 
         return $this->render('product/index.html.twig', [
            'products' => $productRepository->findAll(),
           'user' => $userEmail->getEmail(),
-            'message' =>''
+            'message'=>''
      ]);   
-       return $this->redirectToRoute('product_index');
-//        return $this->render('product/index.html.twig', [
-//            'products' => $productRepository->findAll(),
-//        ]);
+//       return $this->redirectToRoute('product_index');
+
     }
 
     

@@ -51,6 +51,7 @@ body {
 .style-nav ul {
 	list-style-type: none;
 
+
 }
 
 .style-nav ul li a {
@@ -64,7 +65,7 @@ body {
 
 #user  {
 		float: right;
-                padding-bottom: 50px;
+
 	}
 
 /*Tablet View*/
@@ -79,27 +80,11 @@ body {
 		display: inline-block;
 	}
 	
-/*	.style-nav ul {
+	.style-nav ul {
 		text-align: center;
-	}*/
-	
-/*	h1 {
-		font-size: 40px;
-		margin-bottom: 90px;
-	}
-	
-	h2 {
-		margin-bottom: 16px;
-	}
-	
-	.col-md-one-half {
-		width: 50%;
-	}
-	
-	.col {
-		float: left;
-		padding: 0px 7px 14px;
-	}*/
+}
+
+
 }
 
 /*Desktop View*/
@@ -121,8 +106,6 @@ body {
                
 	}
 
-/*	.col-lg-one-fourth {
-		width: 25%;
-	}*/
+
 }
 

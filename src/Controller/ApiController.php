@@ -18,12 +18,13 @@ class ApiController extends AbstractController
      * 
      */
     public function ApiIndex(ProductRepository $productRepository): Response
-    { 
+    {
+//        aceasta ruta nu se foloseste . este ca exemplu de randare a tuturor produselor
        $products = $this->getDoctrine()->getManager()
         ->createQuery('SELECT p FROM App\Entity\Product p WHERE p.dataStop >= CURRENT_DATE()')
         ->getResult();
       
-//   $products.JSON.parse();
+
        
      
     return new JsonResponse($products);
@@ -42,45 +43,11 @@ class ApiController extends AbstractController
            'productId'=>$productId
        ]);        
       
-//       dump($product);
+
       return new JsonResponse($product);
-//        
+
     }
 }
-//    /**
-//     * @Route("/api", name="api",  methods={"GET", "POST"}, requirements={"productId":"\d+"}))
-//     * 
-//     */
-//    public function ultimulPretLicitat(Request $request): Response
-//    {
-////        $productId = $request->query->get('productId');
-//         
-//        $repo=$this->getDoctrine()->getRepository(Product::class)->findAll();
-//      
-//          dump($repo);
-//        
-//        return new Response(json_encode($repo));
-////      
-//    }
-////        return $this->render('api/index.html.twig', [
-////            'controller_name' => 'ApiController',
-////        ]);
-///**
-// * @Route("/apiajax")
-// * @return Response   
-//*/
-//    public function showUltimulPretLicitatAjax(){
-//      $repo=$this->getDoctrine()->getRepository(Product::class)->findAll();   
-//       return new Response (
-//                    $this->render('api/index.html.twig')
-//               );
-//               /*sau 'lucky_number.html.twig*/
-////        ['repo' => $repo])
-//       
-////        cross site scripting- s-a bagat in placeholderul 'message' un script javascript. 
-////        dat twig are autoescape enabled by default. 
-//   
-//    }
-//}
+
 
 

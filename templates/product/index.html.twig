@@ -7,33 +7,33 @@
   <style>
 {# tablet view     #}
        @media (min-width: 768px){
-	
+
 	body {
 		max-width: 778px;
 	}
          #container {
-    
+
        display: grid;
         grid-template-columns: 50% 50%;
 {#        grid-template-rows: 50% 50%;#}
-       
-        
-   
-        
+
+
+
+
     }
- 
+
 @media (min-width: 1024px){
-	
+
 	body {
 		max-width: 1200px;
 	}
-        
+
     #container {
-    
+
        display: grid;
         grid-template-columns: 20% 20% 20% 20% 20%;
 {#        grid-template-rows: 20% 20% 20% 20% 20%;    #}
-    
+
 
 
     </style>
@@ -61,10 +61,10 @@
   <img style="width: 200px; height: 200px" src="/uploads/{{ product.photoA }}" class="card-img-top" alt="...">
   <div class="card-body">
     
-    {#<p class="card-text">{{ product.productDescription }}</p>#}
+
    <hr>
-   <p class="card-text">Ultimul Pret Licitat: <div id="container{{product.productId}}"></div> {#{{ product.ultimulPretLicitat }}#}</p>
-    {#<div id="container1"> ultim pret Licitat</div>#}
+   <p class="card-text">Ultimul Pret Licitat: <div id="container{{product.productId}}"></div>
+
     
     <a style="position: absolute; left: 1px; bottom: 20px;" href="{{ path('product_show', {'productId': product.productId}) }}" class="btn btn-secondary btn-sm">Detalii / Liciteaza</a>
     <a style="position: absolute; right: 1px; bottom: 20px;" href="{{ path('addFavorites', {'productId': product.productId}) }}" class =" btn btn-secondary btn-sm">Favorite</a>
@@ -88,22 +88,13 @@
 
 
    </script>
-                   {# <a href="{{ path('product_show', {'productId': product.productId}) }}">show</a>#}
-                   {#  {% if is_granted('ROLE_ADMIN') %}   {#{% endif %}#}
-{#                    <a href="{{ path('product_edit', {'productId': product.productId}) }}">edit</a>#}
-                   {# {% endif%}#}
+
         {% else %}
             
             <div colspan="12">no records found</div>
             
         {% endfor %}
 
-
-{#</div>   #} 
-    
-{#{%if is_granted('ROLE_ADMIN') %} #}
-  {#  <a href="{{ path('product_new') }}">Create new</a>#}
-{#{%endif%}#}
      </div>
 {{ include('product/_footer.html.twig') }}
 {% endblock %}

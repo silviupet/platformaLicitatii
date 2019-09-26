@@ -14,30 +14,20 @@ use App\Entity\Licitatie;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 class CartController extends AbstractController {
-//    private $session;
-//
-//    public function __construct(SessionInterface $session)
-//    {
-//        $this->session = $session;
-//    }
 /**
  * @Route("/mycart", methods={"GET"}, name="mycart")
  */
+//acest controller nu este functional. este facut ca exercitiu
     public function indexCart(Request $request): Response{
-//        $session = new Session();
-//        $session->start();
-       
-//       $cart = $this->session->get('cart');
          $session = $request -> getSession();
          $cart = $session->get('cart');
-       dump($cart);
-        $repo =$this->getDoctrine()->getRepository(Product::class);
-            $product=$repo;
+         $repo =$this->getDoctrine()->getRepository(Product::class);
+         $product=$repo;
             
-            $userEmail = $this->getUser();
+         $userEmail = $this->getUser();
      
-       if ($userEmail ==null){
-        return $this->render('cart/index.html.twig', [
+         if ($userEmail ==null){
+         return $this->render('cart/index.html.twig', [
             'cart'=>$cart,
             'product' => $product,
 //          'user' => $userEmail->getEmail(),
@@ -47,34 +37,20 @@ class CartController extends AbstractController {
         return $this->render('cart/index.html.twig', [
             'cart'=>$cart,
             'product' => $product,
-         'user' => $userEmail->getEmail(),
+            'user' => $userEmail->getEmail(),
             'message' =>''
-     ]);               
-        
-         
-//          return $this->render('product/cart.html.twig',[
-//            'cart'=>$cart,
-//            'product' =>$product,
-//             'user'=>''
-//           ]);
-        
+     ]);
     }
 /**
 * @Route("addToCart", name="addToCart", methods={"GET", "POST"}, requirements={"productId":"\d+"})
 * @param Request $request
 */  
 public function addCart( Request $request): Response {
-    $session = new Session();
-//    $session->start();
-        
-        $cart = $session->get('cart');
-//         $cart = $this->session->get('cart');
-         
-//         $cart = $session->get('cart');  
-// daca nu este setat nimic in cart setam un array gol.         
+    $session = $request -> getSession();
+    $cart = $session->get('cart');
+
     if(!isset($cart)){
             $cart = [];
-//            $this->session->set('cart', array());
             $session->set('cart', array());
            
       }
@@ -89,14 +65,10 @@ public function addCart( Request $request): Response {
             'productId'=>$productId
            ]);
        
-////        if(!$product) {
-////            abort(404);
-////        }
-//           $cart = $session->get('cart');
-//           dump($cart);
+
         
 // if cart is empty then this the first product
-//        
+
         if(!$cart) {
             
             
@@ -104,32 +76,23 @@ public function addCart( Request $request): Response {
                 $productId => [
                     "Titlu" => $product->getProductTitle(),
                     "Descriere" => $product->getProductDescription(),
-//                    "photoA" => '<img style="width: 200px; height: 250px" src="/uploads/'.$product->getPhotoA(). 'class="card-img-top" alt="...">',
-                  "photoA" => $product ->getPhotoA(),
+                    "photoA" => $product ->getPhotoA(),
                     "pretPornire " => $product->getPretPornire(),
                     "ultimulPretLicitat" => $product->getUltimulPretLicitat(),
-                 "dataStop" => $product->getDataStop()->format("Y-m-d")
-//                    "dataStop" => new \DateTime($product->getDataStop())
-                    
-                    
-                    
+                    "dataStop" => $product->getDataStop()->format("Y-m-d")
                 ]
             ];
         }
-//            $this->session->set('cart', $cart);
+
             $session->set('cart', $cart);
             
             
         // if cart not empty then check if this product exist  and if not it will be add
        
         if(isset($cart[$productId])) {
-//       return new Response("este setat produsul $productId");
-//            $this->addFlash(
-//                'info',
-//                'Produsul este deja la favorite ');
              $userEmail = $this->getUser();
             if ($userEmail ==null){
-        return $this->render('cart/index.html.twig', [
+            return $this->render('cart/index.html.twig', [
             'cart'=>$cart,
             'product' => $product,
 //          'user' => $userEmail->getEmail(),
@@ -148,27 +111,19 @@ public function addCart( Request $request): Response {
                  = [
                     "Titlu" => $product->getProductTitle(),
                     "Descriere" => $product->getProductDescription(),
-//                    "photoA" => "$dir".'/'.$product->getPhotoA(),
                     "photoA" => $product->getPhotoA(),
-//                      "photoA" => '<img style="width: 200px; height: 250px" src="/uploads/'.$product->getPhotoA(). 'class="card-img-top" alt="...">',
-                    
-//                      <img style="width: 200px; height: 250px" src="/uploads/{{ product.photoA }}" class="card-img-top" alt="...">
                     "pretPornire " => $product->getPretPornire(),
                     "ultimulPretLicitat" => $product->getUltimulPretLicitat(),
-                  "dataStop" => $product->getDataStop()->format("Y-m-d")
+                    "dataStop" => $product->getDataStop()->format("Y-m-d")
                 
             ];
     
-//     $this->session->set('cart', $cart);
+
         $session->set('cart', $cart);
-        
-//        dump($session);
-            
-        $userEmail = $this->getUser();  
-        
-//             
+
+        $userEmail = $this->getUser();
              if ($userEmail ==null){
-        return $this->render('cart/index.html.twig', [
+            return $this->render('cart/index.html.twig', [
             'cart'=>$cart,
             'product' => $product,
 //          'user' => $userEmail->getEmail(),
@@ -188,14 +143,14 @@ public function addCart( Request $request): Response {
 */  
     public function removeCart(Request $request)
     {
-//        $cart = $request -> getSession()->get('cart');
+
         $productId = $request->query->get('productId');
         
       if($productId) {
           $session = $request -> getSession();
           
         $cart=$session->get('cart');
-        dump($cart);
+
            if(isset($cart[$productId])) {
            unset($cart[$productId]);
                $session->set('cart', $cart);
@@ -203,7 +158,7 @@ public function addCart( Request $request): Response {
              $userEmail = $this->getUser();  
               $repo =$this->getDoctrine()->getRepository(Product::class);
             $product=$repo;
-            dump($product);
+
 //             
              if ($userEmail ==null){
         return $this->render('cart/index.html.twig', [

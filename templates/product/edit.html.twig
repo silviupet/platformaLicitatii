@@ -1,16 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{#{% block title %}Edit Product{% endblock %}
+{% block title %}Edit Product{% endblock %}
 
-{% block body %}
-    <h1>Edit Product</h1>
 
-    {{ include('product/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('product_index') }}">back to list</a>
-
-    {{ include('product/_delete_form.html.twig') }}
-{% endblock %}#}
 {% block body %}
     {{ include('product/_navigationMenu.html.twig') }}
 <div class="row">
@@ -22,16 +14,6 @@
         </div>
     </div>
 
-  {#  @if ($errors->any())
-        <div class="alert alert-danger">
-            <strong>Oops!</strong> There were some problems with your input.<br><br>
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif#}
   <div class="card-body">
    <form action="{{path('product_edit',{'productId':product.productId})}}" method="POST" enctype="multipart/form-data">
 
@@ -127,7 +109,7 @@
                 <div class="form-group">
                     <strong>Data Stop Licitatie:</strong>
                     <input type="date" value="{{product.dataStop|date('y-m-d')}}" name="dataStop" class="form-control" placeholder="Data stop"></input>
-                    Ultima data sfarsit licitatie setata este: {{product.dataStop|date('y-m-d')}}
+                    Ultima data sfarsit licitatie setata este: {{product.dataStop|date('d-m-yy')}}
                 </div>
             </div>
 

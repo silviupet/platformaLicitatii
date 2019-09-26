@@ -31,7 +31,7 @@ class Produsefavorite
      * @param $userId
      * @param $productId
      */
-    public function __construct($userId, $productId)
+    public function  __construct($userId, $productId)
     {
         $this->userId = $userId;
         $this->productId = $productId;
