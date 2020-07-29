@@ -15,9 +15,9 @@ use App\Entity\Licitatie;
 
 
 
-/**
- * @Route("/product")
- */
+///**
+// * @Route("/product")
+// */
 class ProductController extends AbstractController
 {
     /**
