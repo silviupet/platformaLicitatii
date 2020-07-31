@@ -36,7 +36,7 @@ class MyProductsController extends AbstractController
                 'Trebuie sa fi logat pentru a vedea produsele tale'
             );
         }
-        $this->denyAccessUnlessGranted(['ROLE_USER']);
+//        $this->denyAccessUnlessGranted(['ROLE_USER']);
 
         $userEmail = $this->getUser();
 
@@ -66,7 +66,7 @@ class MyProductsController extends AbstractController
      * @Route("myproducts/{productId}/edit", name="product_edit", methods={"GET","POST"},requirements={"ProductId":"\d+"})
      *
      */
-    public function edit(Request $request, Product $product): Response
+    public function edit(Request $request, $productId): Response
     {
         if (!$this->isGranted('IS_AUTHENTICATED_FULLY')) {
             $this->addFlash(
@@ -76,10 +76,8 @@ class MyProductsController extends AbstractController
         }
 
 
-        $repo = $this->getDoctrine()->getRepository(Product::class);
-        $product = $repo->findOneBy([
-           'productId' => $product->getProductId()
-        ]);
+        $product = $this->getDoctrine()->getRepository(Product::class)->find($productId);
+
         $productTitle = $request->request->get('productTitle');
         if (!empty($productTitle)) {
             $product->setProductTitle($productTitle);
@@ -194,7 +192,7 @@ class MyProductsController extends AbstractController
         $em = $this->getDoctrine()->getManager();
         $em->persist($product);
         $em->flush();
-//        $this->addFlash('success', 'produs schimbat');
+//       $this->addFlash('success', 'produs schimbat');
 
         return $this->render('product/edit.html.twig',
             [

@@ -25,7 +25,7 @@ class FavoritesController extends AbstractController
                 'Trebuie sa fi logat pentru a vedea produsele tale favorite '
             );
         }
-        $this->denyAccessUnlessGranted(['ROLE_USER']);
+//        $this->denyAccessUnlessGranted(['ROLE_USER']);
 
 
 
@@ -61,7 +61,7 @@ class FavoritesController extends AbstractController
                 'Trebuie sa fi logat pentru a adauga produsele tale favorite '
             );
         }
-        $this->denyAccessUnlessGranted(['ROLE_USER']);
+//        $this->denyAccessUnlessGranted(['ROLE_USER']);
 
         $productId = $request->query->get('productId');
         $userId = $this->getUser()->GetUserId();
@@ -92,13 +92,14 @@ class FavoritesController extends AbstractController
     {
 
 
-        $this->denyAccessUnlessGranted(['ROLE_USER']);
+        $this->denyAccessUnlessGranted("IS_AUTHENTICATED_FULLY");
         $userId= $this->getUser()->getUserId();
         $repo =$this->getDoctrine()->getRepository(Produsefavorite::class);
         $product = $repo->findOneBy([
             'productId'=>$productId,
             'userId'=>$userId
         ]);
+
       if(!empty($product)) {
           $entityManager = $this->getDoctrine()->getManager();
           $entityManager->remove($product);

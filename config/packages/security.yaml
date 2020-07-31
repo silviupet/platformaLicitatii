@@ -23,7 +23,7 @@ security:
                 path: app_logout
                 # where to redirect after logout
                 target: product_index
-#                invalidate_session: false
+ #               invalidate_session: false
                 
             form_login:
                login_path: app_login
@@ -42,14 +42,13 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-#          - { path: ^/admin, roles: ROLE_ADMIN }
-#          - { path: ^/product/new, roles: ROLE_USER }
-#          - { path: ^/product/\d/.*$, roles: ROLE_USER }
-          - { path: ^/product/\d, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-       
-          
-          - { path: ^/login.*$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-          - { path: ^/register.*$, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-          - { path: ^/product , roles: IS_AUTHENTICATED_ANONYMOUSLY }
-#          - { path: ^/.+$, roles: ROLE_USER }
+         - { path: ^/admin, roles: ROLE_ADMIN }
+         - { path: '^/admin', roles: [IS_AUTHENTICATED_FULLY, ROLE_ADMIN] }
+         - { path: ^/(new|add|myproducts|favorites), roles: IS_AUTHENTICATED_FULLY }
+         - { path: ^/\d/.*$, roles: IS_AUTHENTICATED_FULLY }
+         - { path: ^/\d, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/register, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/ , roles: IS_AUTHENTICATED_ANONYMOUSLY }
+         - { path: ^/.+$, roles: IS_AUTHENTICATED_FULLY }
          

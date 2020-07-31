@@ -81,9 +81,6 @@
     "egulias/email-validator": {
         "version": "2.1.10"
     },
-    "fig/link-util": {
-        "version": "1.0.0"
-    },
     "laminas/laminas-zendframework-bridge": {
         "version": "1.0.4"
     },
@@ -117,23 +114,14 @@
     "psr/container": {
         "version": "1.0.0"
     },
+    "psr/event-dispatcher": {
+        "version": "1.0.0"
+    },
     "psr/link": {
         "version": "1.0.0"
     },
     "psr/log": {
         "version": "1.1.0"
-    },
-    "sensio/framework-extra-bundle": {
-        "version": "5.2",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "5.2",
-            "ref": "fb7e19da7f013d0d422fa9bce16f5c510e27609b"
-        },
-        "files": [
-            "./config/packages/sensio_framework_extra.yaml"
-        ]
     },
     "swiftmailer/swiftmailer": {
         "version": "v6.2.1"
@@ -181,9 +169,6 @@
     "symfony/css-selector": {
         "version": "v4.3.2"
     },
-    "symfony/debug": {
-        "version": "v4.3.2"
-    },
     "symfony/debug-bundle": {
         "version": "4.1",
         "recipe": {
@@ -210,6 +195,9 @@
     },
     "symfony/dotenv": {
         "version": "v4.3.2"
+    },
+    "symfony/error-handler": {
+        "version": "v4.4.11"
     },
     "symfony/event-dispatcher": {
         "version": "v4.3.2"
@@ -347,6 +335,9 @@
     "symfony/polyfill-php73": {
         "version": "v1.11.0"
     },
+    "symfony/polyfill-php80": {
+        "version": "v1.18.0"
+    },
     "symfony/process": {
         "version": "v4.3.2"
     },
@@ -427,19 +418,6 @@
     "symfony/test-pack": {
         "version": "v1.0.6"
     },
-    "symfony/translation": {
-        "version": "3.3",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "3.3",
-            "ref": "2ad9d2545bce8ca1a863e50e92141f0b9d87ffcd"
-        },
-        "files": [
-            "./config/packages/translation.yaml",
-            "./translations/.gitignore"
-        ]
-    },
     "symfony/translation-contracts": {
         "version": "v1.1.5"
     },
@@ -495,15 +473,6 @@
             "./config/packages/test/web_profiler.yaml",
             "./config/routes/dev/web_profiler.yaml"
         ]
-    },
-    "symfony/web-server-bundle": {
-        "version": "3.3",
-        "recipe": {
-            "repo": "github.com/symfony/recipes",
-            "branch": "master",
-            "version": "3.3",
-            "ref": "dae9b39fd6717970be7601101ce5aa960bf53d9a"
-        }
     },
     "symfony/yaml": {
         "version": "v4.3.2"

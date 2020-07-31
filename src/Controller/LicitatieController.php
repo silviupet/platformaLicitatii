@@ -35,7 +35,7 @@ class LicitatieController extends AbstractController
                 'Trebuie sa fii logat pentru a licita'
             );
         }
-        $this->denyAccessUnlessGranted(['ROLE_USER']);
+//        $this->denyAccessUnlessGranted(['ROLE_USER']);
 
         if (!$request->request->has('pretLicitat')) {
             return $this->redirectToRoute('product_index');

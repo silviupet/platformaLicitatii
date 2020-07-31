@@ -15,6 +15,7 @@ use App\Entity\Licitatie;
 
 
 
+
 ///**
 // * @Route("/product")
 // */
@@ -29,6 +30,7 @@ class ProductController extends AbstractController
        $products = $this->getDoctrine()->getManager()
         ->createQuery('SELECT p FROM App\Entity\Product p WHERE p.dataStop >= CURRENT_DATE()')
         ->getResult();
+
        $userEmail = $this->getUser();
        
        if ($userEmail ==null){
@@ -57,7 +59,7 @@ class ProductController extends AbstractController
                 'Trebuie sa fi logat pentru a adauga un produs'
             );
         }
-        $this->denyAccessUnlessGranted(['ROLE_USER']);
+//        $this->denyAccessUnlessGranted(['ROLE_USER']);
 
         $product = new Product();
         $form = $this->createForm(ProductType::class, $product);
@@ -147,9 +149,18 @@ class ProductController extends AbstractController
             $product->setUltimulPretLicitat($file);
             
             
-            
-            $file = $product->getDataStop();
-            
+//            $date = new DateTime;
+//            $date ->setDate($product->getDataStop());
+//            $date -> format('Y-m-d');
+           $file = ($product->getDataStop());
+//            $dateStop =$product->getDataStop();
+//            $date = new \DateTime($dateStop);
+
+
+//            $date = $date->format('Y-m-d H:i:s');
+
+
+
             $product->setDataStop($file);
             
             
@@ -196,16 +207,26 @@ class ProductController extends AbstractController
 
     /**
      * @Route("/{productId}", name="product_show", methods={"GET"},requirements={"productId":"\d+"})
+     *@param $productId
      */
-    public function show(Product $product): Response
+    public function show($productId): Response
     {
+
+//       $product = $productRepository->findBy([
+//               'productId' => $request->query->get('productId')
+//
+//            ]);
+        $product = $this->getDoctrine()->getRepository(Product::class)->find($productId);
+//        dd($product);
+
         $userEmail = $this->getUser();
        if ($userEmail ==null){
         return $this->render('product/show.html.twig', [
             'product' => $product,
 //          'user' => $userEmail->getEmail(),
             'message' =>''
-       ]);         
+       ]);
+
        } else 
         return $this->render('product/show.html.twig', [
             'product' => $product,
