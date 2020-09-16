@@ -37,9 +37,9 @@ class LicitatieController extends AbstractController
         }
 //        $this->denyAccessUnlessGranted(['ROLE_USER']);
 
-        if (!$request->request->has('pretLicitat')) {
-            return $this->redirectToRoute('product_index');
-        }
+//        if (!$request->request->has('pretLicitat')) {
+//            return $this->redirectToRoute('product_index');
+//        }
         $productId = $request->query->get('productId');
 //exista 2 moduri de a trimite Id produsului in controller
 //1. cu input tipe hidden si avole luat cu $request->request->get('productId')
@@ -48,7 +48,15 @@ class LicitatieController extends AbstractController
 
         $userId = $this->getUser()->GetUserId();
 //if not emty
-        $pretLicitat = $request->request->get('pretLicitat');
+        if($request->request->get('pretLicitat'))$pretLicitat = $request->request->get('pretLicitat');
+        else {
+            $this->addFlash(
+                'warning',
+                'Nu ai introdus nici o suma de licitat'
+            );
+            return $this->redirectToRoute("product_index");
+        }
+//        $pretLicitat = $request->request->get('pretLicitat');
         $dataPret = date("Y-m-d H:i:s");
         $dataPretLicitat = new \DateTime($dataPret);
 
