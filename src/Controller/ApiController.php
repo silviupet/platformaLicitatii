@@ -11,7 +11,7 @@ use App\Repository\ProductRepository;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
 
-class ApiController extends AbstractController
+class  ApiController extends AbstractController
 {
     /**
      * @Route("/apiindex", name="api_index", methods={"GET"})
