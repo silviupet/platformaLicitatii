@@ -1,0 +1,46 @@
+POST http://platformadelicitatii.ro/myproducts/5/edit?=&productTitle=Citroen Berlingoo
+Accept: */*
+Cache-Control: no-cache
+
+<> 2020-09-30T083513.302.html
+
+###
+
+GET http://platformadelicitatii.ro/myproducts/5/edit?=
+Accept: */*
+Cache-Control: no-cache
+
+<> 2020-09-30T083207.200.html
+
+###
+
+GET http://platformadelicitatii.ro/myproducts?=
+Accept: */*
+Cache-Control: no-cache
+
+<> 2020-09-30T082555.200.html
+
+###
+
+GET http://platformadelicitatii.ro/5?=
+Accept: */*
+Cache-Control: no-cache
+
+<> 2020-09-30T082353.200.html
+
+###
+
+DELETE http://platformadelicitatii.ro/deletefavorite/5
+Accept: */*
+Cache-Control: no-cache
+
+<> 2020-09-30T081957.302.html
+
+###
+
+DELETE http://platformadelicitatii.com/deletefavorite/5
+Accept: */*
+Cache-Control: no-cache
+
+###
+
